@@ -1,0 +1,9 @@
+/ms/*.aux
+/ms/*.fdb_latexmk
+/ms/*.fls
+/ms/*.log
+/ms/*.pdf
+/ms/*.aux
+/ms/*.bbl
+/ms/*.blg
+/tags

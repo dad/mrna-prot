@@ -1,0 +1,1800 @@
+% Template for PLoS
+% Version 1.0 January 2009
+%
+% To compile to pdf, run:
+% latex plos.template
+% bibtex plos.template
+% latex plos.template
+% latex plos.template
+% dvipdf plos.template
+
+\documentclass[10pt]{article}
+
+% amsmath package, useful for mathematical formulas
+\usepackage{amsmath}
+% amssymb package, useful for mathematical symbols
+\usepackage{amssymb}
+
+% graphicx package, useful for including eps and pdf graphics
+% include graphics with the command \includegraphics
+\usepackage{graphicx}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+\usepackage{etoolbox}
+
+\usepackage{color} 
+%\usepackage{xcolor} 
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage[vlined]{algorithm2e}
+
+\usepackage[section]{placeins}
+\usepackage{longtable}
+
+%\usepackage{slashbox,multirow}
+\usepackage{diagbox}
+
+% Use doublespacing - comment out for single spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+
+% Text layout
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm 
+\textheight 21cm
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+
+\DeclareCaptionType{nofiguretype}[Figure][List of nofiguretype]
+\newenvironment{nofigure}{\captionsetup{type=nofiguretype}}{}
+\DeclareCaptionType{supfiguretype}[Figure S][List of supfiguretype]
+\newenvironment{supfigure}[1]{\captionsetup{type=supfiguretype}\begin{figure}[#1]}{\end{figure}}
+\DeclareCaptionType{nosupfiguretype}[Figure S][List of nosupfiguretype]
+\newenvironment{nosupfigure}{\captionsetup{type=nosupfiguretype}}{}
+
+
+% Use the PLoS provided bibtex style
+\bibliographystyle{plos2009}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+% Conditional compilation of figures in or out
+\newbool{INCLUDEFIGURES}
+%\booltrue{INCLUDEFIGURES}
+\boolfalse{INCLUDEFIGURES}
+
+
+% Leave date blank
+\date{}
+
+\pagestyle{myheadings}
+%% ** EDIT HERE **
+
+
+%% ** EDIT HERE **
+%% PLEASE INCLUDE ALL MACROS BELOW
+
+
+\renewcommand{\l}{l}
+\newcommand{\lj}{{\l[\raisebox{.7pt}{$\scriptstyle j$}]}}
+\newcommand{\kj}{{k[\raisebox{.7pt}{$\scriptstyle j$}]}}
+\newcommand{\tj}{{t[\raisebox{.7pt}{$\scriptstyle j$}]}}
+
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\mat}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\etc}{\textit{etc.}}
+\newcommand{\species}[1]{\textit{#1}}
+\newcommand{\invivo}{\textit{in vivo}}
+
+\newcommand{\todo}{\textcolor{red}{TO DO}}
+
+
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Var}{Var}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\graphicspath{{"../figures/"} }
+\DeclareGraphicsExtensions{%
+    .pdf,.PDF,%
+    .png,.PNG,%
+    .jpg,.mps,.jpeg,.jbig2,.jb2,.JPG,.JPEG,.JBIG2,.JB2}
+
+
+%% END MACROS SECTION
+
+\begin{document}
+
+% Title must be 150 characters or less
+\begin{flushleft}
+{\Large
+\textbf{Accounting for experimental noise reveals that mRNA levels, amplified by post-transcriptional processes, largely determine steady-state protein levels in yeast}
+}
+
+\medskip
+% Insert Author names, affiliations and corresponding author email.
+G\'abor Cs\'ardi$^{1\dagger}$, 
+Alexander Franks$^{1\dagger}$, 
+David S.~Choi$^{1}$,
+Edoardo M.~Airoldi$^{1,2\ast}$,
+D.~Allan Drummond$^{3,4\ast}$
+\\
+\textbf{1} Dept. of Statistics, Harvard University, Cambridge, MA, USA
+\\
+\textbf{2} The Broad Institute of Harvard \& MIT, Cambridge, MA, USA
+\\
+\textbf{3} Dept. of Biochemistry \& Molecular Biology, University of Chicago, Chicago, IL, USA
+\\
+\textbf{4} Dept. of Human Genetics, University of Chicago, Chicago, IL, USA
+\\
+$\ast$ E-mail: dadrummond@uchicago.edu, airoldi@fas.harvard.edu\\
+$\dagger$ These authors contributed equally to this work.
+\end{flushleft}
+
+% Please keep the abstract between 250 and 300 words
+\section*{Abstract}
+Cells respond to their environment by modulating protein levels
+through mRNA transcription and post-transcriptional control. Modest observed
+correlations between global steady-state mRNA and protein measurements
+have been interpreted as evidence that mRNA levels determine
+roughly 40\% of the variation in protein levels, indicating dominant
+post-transcriptional effects. However, the techniques underlying these
+conclusions, such as correlation and regression, yield biased results
+when data are noisy, missing systematically, and collinear---properties
+of mRNA and protein measurements---which motivated us to revisit this
+subject. Noise-robust analyses of 24 studies of budding yeast reveal
+that mRNA levels explain more than 85\% of the variation in steady-state
+protein levels. Protein levels are not proportional to mRNA levels, but rise much more rapidly. Regulation of translation suffices to explain this nonlinear effect, revealing post-transcriptional amplification of, rather than competition with, transcriptional signals. These results substantially revise widely credited models of protein-level regulation, and introduce multiple noise-aware approaches essential for proper analysis of many biological phenomena.
+
+
+% Please keep the Author Summary between 150 and 200 words
+% Use first person. PLoS ONE authors please skip this step. 
+% Author Summary not valid for PLoS ONE submissions.   
+\section*{Author Summary}
+Cells respond to their environment by making proteins using transcription and translation of mRNA. Modest observed
+correlations between global steady-state mRNA and protein measurements
+have been interpreted as evidence that mRNA levels determine
+roughly 40\% of the variation in protein levels, indicating dominant
+post-transcriptional effects. However, the techniques underlying these
+conclusions, such as correlation and regression, yield biased results
+when data are noisy and contain missing values. Here we show that when methods that account for noise are used to analyze much of the same data, mRNA levels explain more than 85\% of the variation in steady-state
+protein levels. Protein levels are not proportional to mRNA levels as commonly assumed, but rise much more rapidly. Regulation of translation achieves amplification of, rather than competition with, transcriptional signals. Our results suggest that for this set of conditions, mRNA sets protein-level regulation, and introduce multiple noise-aware approaches essential for proper analysis of many biological phenomena.
+
+\section*{Introduction}
+Cellular protein levels reflect the balance of mRNA levels,
+protein production by translation initiation and completion, and
+protein removal by degradation, secretion, and dilution due to growth
+\cite{desousa09,Belle2006,schwanhausser11}(Fig~\ref{fig:correlation-overview}A). A standard
+quantitative model for protein-level regulation \cite{Beyer2004,Yu2007} is 
+\begin{equation}
+\frac{\partial P_i}{\partial t} = \tau_i M_i - \delta_i P_i
+\label{eq:protein-regulation}
+\end{equation}
+where \(P_i\) is the cellular protein level (molecules per cell) of
+gene \(i\), \(M_i\) is the mRNA level, and \(\tau_i\) and \(\delta_i\) 
+are the mRNA translation and net protein removal rates,
+respectively. According to this model, at steady-state, protein levels will be proportional to
+mRNA levels with proportionality constants of \(\tau_i/\delta_i\):
+\begin{equation}
+P_i = \frac{\tau_i}{\delta_i}M_i
+\label{eq:steady-state-protein}
+\end{equation}
+such that if rates of translation and removal did not vary by gene, and in the absence of experimental noise or other variation,
+steady-state mRNA and protein levels would correlate perfectly
+\cite{desousa09}. Consequently, the mRNA--protein correlation observed
+in global measurements of mRNA and protein levels has been intensely
+studied, and deviations from perfect correlation used to quantify the
+contribution of post-transcriptional processes to cellular protein
+levels \cite{desousa09,gygi99,maier09,schwanhausser11,siwiak10,
+  vogel12}.
+
+The consensus across these studies holds that, in a wide array of
+organisms, transcriptional regulation explains 30--50\% of the
+variation in steady-state protein levels, leaving half or more to
+be explained by post-transcriptional regulatory processes
+\cite{Nie2006a,brockmann07,Schmidt2007,
+  castrillo07,Wu2008,maier09,schwanhausser11,Vogel2010,vogel12,wang12}. Higher
+correlations are observed, generally for subsets of less than half the
+genome \cite{desousa09,lu07,vogel12}. Low observed mRNA--protein
+correlations have motivated the search for alternate forms of
+regulation capable of accounting for the majority of protein-level
+variability \cite{castrillo07,schwanhausser11,vogel12}. In one proposal, mRNA levels serve mainly as an on-off switch for protein expression, imposing coarse control over protein levels which is then tuned by post-transcriptional mechanisms \cite{vogel12}. Recent
+studies have indeed uncovered wide between-gene variation in
+post-transcriptional features such as inferred translation rates
+\cite{ingolia09} and protein degradation rates
+\cite{schwanhausser11}.
+
+However, as frequently noted \cite{greenbaum03,Nie2006a,desousa09,futcher99,maier09,
+  vogel12,li14}, noise in measurements can cause many of the
+observations attributed to post-transcriptional regulation. Here,
+noise encompasses variability due to cell-to-cell variation, growth
+conditions, sample preparation and other effects due to experimental
+design \cite{leek10}, and measurement biases and
+error\cite{Nie2006a,li14,Li2015}. Uncorrelated noise between mRNA and protein
+measurements will reduce the observed mRNA--protein correlation
+relative to the true value\cite{spearman04}, while inflating the variation in
+measurements of translational efficiency and other post-transcriptional
+processes.
+
+Most studies, particularly of protein levels, cover only a subset of known genes, due to factors such as signal-to-noise limitations, method biases, and continual revision of the coding-sequence annotations used to design and analyze assays. Limited and variable transcriptome and proteome coverage complicate analyses further, making it difficult to compare studies and to synthesize a holistic view of regulatory contributions. Missing data tends to reduce the precision of estimates, if data are missing at random (MAR). However, most quantification methods are biased toward detection of more abundant mRNAs and proteins\cite{vogel12}. Data which are not missing at random (NMAR) in this way have reduced variance or restricted range. Range restriction, in turn, tends to systematically attenuate (reduce in absolute magnitude toward zero) the observed correlations and regression coefficients relative to complete data \cite{Pearson1903, Alexander1985}. That is, biased detection produces biased estimates of the mRNA--protein correlation, leading to incorrect conclusions about regulatory contributions \cite{Franks2014}.
+
+In many comparisons of the roles of transcriptional and post-transcriptional regulation, protein levels are correlated with or regressed on various predictors (mRNA level and half-life, codon usage, amino-acid usage, \etc) to determine relative contributions to protein-level variation\cite{Beyer2004,Wu2008,ingolia09, schwanhausser11, desousa09,li14}. If mRNA levels are found to explain a certain percentage, say $X$, in protein levels, then the other predictors are asserted to explain no more than $100-X$ percent of the variance\cite{schwanhausser11,li14,plotkin10,vogel12,Jovanovic2015}. A basic assumption of such analyses is that transcriptional and post-transcriptional regulation vary independently between genes. Several of the same studies report that high-expression genes show signs of more efficient translation \cite{Beyer2004, ingolia09, schwanhausser11} (reviewed in \cite{desousa09}), raising concerns about the validity of this assumption.
+
+A related assumption of these analyses, one encoded in the standard functional model above, is that mRNA and protein levels are proportionally or linearly related \cite{Yu2007, desousa09}; the slope of this line is the mean number of proteins per mRNA. More often, the data are plotted on a log-log scale, where linearity appears as a slope of 1. Consistent with this, ordinary least-squares linear regression shows that the slope is quite close to 1 for \species{E.~coli} (0.96) and budding yeast (1.08) \cite{lu07}, and estimates of proteins per mRNA have been reported roughly constant across mRNA expression levels in a prominent study \cite{ghaemmaghami03}.
+
+However, like correlations, slopes estimated by standard linear regression are biased downward by noise in mRNA level measurements, an effect called \emph{regression dilution bias} \cite{hutcheon10} which affects any regression where the independent variable is measured with error. A frequently encountered case is that, given two measurements $X$ and $Y$, the slope from regressing $Y$ on $X$ is not the inverse of the slope of regressing $X$ on $Y$ \cite{Weisberg2005,legendre98, sokal95}; this is regression dilution bias at work. Consequently, linear regression cannot be used to estimate the functional relationship between mRNA and protein levels, raising the question of what the true functional relationship is. Use of nonparametric methods avoids assumptions of linearity \cite{desousa09}, at the cost of destroying genuine information about the dynamic range of gene expression and its determinants.
+
+Analytical solutions to many of these problems exist---notably, Spearman introduced a correction for noise-induced attenuation of correlation estimates more than a century ago \cite{spearman04}---yet have largely failed to find their way into the hands of groups carrying out gene-regulation experiments and analyses (with a few exceptions \cite{Vogel2010}). Some problems remain almost entirely unaddressed, such as providing accurate estimates of the functional relationship between variables measured many times with correlated noise yielding variably and systematically missing values.
+
+Here, we develop and integrate approaches to address all of these challenges, with the aim of providing more comprehensive and rigorous estimates of the relationship between mRNA and protein levels than have previously been possible. To do so, we take advantage of the rapid, continual progress made in global measurement of mRNA and protein levels by multiple methods \cite{velculescu97,holstege98,nagalakshmi08,lipson09,gygi99,ghaemmaghami03,newman06,lu07,degodoy08,lee11}. All of these methods were first employed at the genome scale in studies profiling gene expression during log-phase growth of budding yeast in rich medium, a \emph{de facto} standard. These studies often compare results against previous studies, evaluating agreement, precision, coverage, and dynamic range while pointing out relative advantages of each approach (\eg~\cite{nagalakshmi08,ingolia09,lipson09,ghaemmaghami03,lu07,degodoy08}).
+
+Our efforts to synthesize these data into a coherent whole are grounded in the stance that all these works constitute measurements of the same underlying quantities---average mRNA and protein levels in a large cell population prepared under narrowly defined conditions---whether or not such measurements were the study goal. Systematic differences between approaches due to experimental choices will introduce variation which may not be distinguishable from simple inaccuracy in measurement. We treat this variation as experimental noise without prejudice. Distinctions between biological variability, measurement error, method bias, and other sources of noise are of course important, particularly in deciding how to control or manage noise. These distinctions may also depend on one's perspective. For example, unintentional differences in growth conditions may lead two groups following the same protocol to make measurements on samples which inevitably are, in truth, biologically different, such that error-free measurement would reveal differences in mRNA and protein levels. In one sense, these differences reflect biological variability; in an equally valid sense, they represent experimental noise. Similarly, intentional protocol differences that are not meant to alter measurement accuracy (such as use of new methods intended to make measurements more precise), yet carry known and unknown biases, may also introduce noise. Here, we take an empirical approach to noise which does not involve divining intent. Versions of this approach are taken, often implicitly, by the many previous analyses that integrate experiments from multiple groups \cite{lu07, ingolia09, ghaemmaghami03, siwiak10, vogel12}.
+
+Our results reveal that, once noise is accounted for, mRNA and protein levels correlate much more strongly under these experimental conditions than previously appreciated, with a correlation coefficient of $r = 0.93$. We find that protein levels are not proportional to mRNA levels, but instead are more steeply related, an effect we show is consistent with measurements of translational activity. Transcriptional and post-transcriptional regulation act in a concerted, non-independent manner to set protein levels, inconsistent with common attempts to divvy up and assign protein-level variance to each mechanism. As a byproduct, we generate what by several measures is the most complete and accurate quantitative transcriptome and proteome available, in average molecules per haploid cell, for this widely studied organism under these well-studied conditions. Finally, we highlight and introduce methods for analyzing correlations and functional relationships between measured data which may be used broadly.
+
+% Results and Discussion can be combined.
+\section*{Results}
+
+\subsection*{Correlations and coverage range widely across datasets}
+We collected 38 measurements of mRNA levels and 20 measurements of
+protein levels from 13 and 11 separate studies respectively, each of
+haploid \emph{S. cerevisiae} growing exponentially in shaken liquid
+rich medium with 2\% glucose between 22\celsius~and
+30\celsius~(Table~\ref{tab:data}). As described in the Introduction, we assume, for modeling purposes, that each 
+replicate in each experiment constitutes a measurement of the true per-gene mean mRNA and protein levels under these narrowly defined conditions.
+These data cover varying amounts of the genome
+and display a wide range of correlations between studies
+(Fig~\ref{fig:correlation-overview}B, Pearson correlations on log-transformed values
+with zeros and missing values omitted). 
+
+Although correlations of
+replicates within studies are quite high \cite{vogel12}, with median
+\(r=0.97\) for mRNA and \(0.93\) for protein levels, between-study
+correlations are far more modest, \(r=0.62\) for mRNA measurements and
+\(0.57\) for protein measurements (Fig~\ref{fig:correlation-overview}C). That is, data from a typical mRNA
+study explains 39\% of the variance in another study (\(r^2=0.39\))
+and a typical protein study's results explain only 32\% in another
+study's variance, consistent with previous studies reporting wide
+variation between studies \cite{wang12}.  Strong outliers indicate
+high reproducibility for a two pairs of studies
+(Fig~\ref{fig:correlation-overview}C), but each such outlier is a correlation
+between separate studies done by the same research group, suggesting
+the presence of additional variability sources between groups. Coverage of the 5,887 verified protein-coding genes in yeast \cite{cherry12} also varies widely across pairs of studies (Fig~\ref{fig:correlation-overview}C).
+
+Coupled with high within-study reproducibility, the low between-study
+reproducibility indicates the presence of large systematic errors
+between studies. In a single study \cite{lipson09}, mRNA levels in a commercially prepared sample were measured using two methods, a commercial microarray and single-molecule RNA sequencing. These measurements correlate with $r=0.86$ (73\% of the variance explained in one measurement by the other), quite similar to the $r=0.84$ correlation of the single-molecule measurement with an independent RNA-Seq dataset on RNA from a different study \cite{yassour09}. These data hint, coupled with similar observations in other biological systems \cite{marioni08}, that high within-study reproducibility is likely to reflect reproducible biases associated with use of a single measurement technique in addition to reproducible features of the biological sample.
+
+Correlations are modest even between studies using similar methods (e.g., \(r=0.81\) between
+two RNA-Seq datasets using Illumina instruments \cite{ingolia09, yassour09}). Comparing mRNA studies performed using similar or different methods on a shared set of 4,595 genes revealed a consistent bias toward higher median correlations between studies using similar methods, but these differences were not statistically distinguishable (Fig~\ref{fig:correlation-overview}D, no \(t\)-test \(P<0.05\) for differences in correlation when comparing studies employing shared methods versus independent methods after false discovery rate correction).
+
+Between-study correlations quantify the studies' mean ratio of true
+variance to total variance, termed the reliability
+\cite{archer08,schmidt99,Vogel2010} (see \emph{Methods}). In turn, setting aside
+sampling error, the maximum observable correlation between any two
+datasets is equal to the geometric mean of their
+reliabilities. Because virtually all reported global mRNA--protein
+correlations involve mRNA and protein levels measured in separate
+studies, between-study reliabilities are the relevant quantity. The
+modest reliability values---setting aside those of the same group
+reporting two studies, which we exclude from this analysis---sharply
+limit the maximum observable mRNA--protein correlations. This limit has
+startling consequences: if steady-state mRNA and protein levels
+actually correlated perfectly (true \(r=1.0\)), then given the median
+observed between-study correlations in Fig~\ref{fig:correlation-overview}C, we would
+expect to observe mRNA--protein correlations of only
+\(r=\sqrt{0.57\times0.62}=0.60\).
+
+The data reveal a wide range of modest mRNA--protein correlations with
+a median of \(r=0.54\) (Fig~\ref{fig:mrna-prot-correlation}A) quantified either by
+the Pearson correlation between log-transformed measurements or the
+nonparametric Spearman rank correlation (S1 Fig; both
+measures produce similar results and we employ the former
+throughout). The largest pair of datasets
+covers 4,367 genes and shows an mRNA--protein correlation of
+\(r=0.618\) (\(r^2=0.38\), 38\% of protein-level variance explained by
+mRNA levels), close to consensus values \cite{vogel12}. The largest dataset containing replicated measurements of mRNA and protein in at least two studies yields similar correlation values; notably, averaging paired measurements together and correlating the averages increases the apparent correlation (Fig~\ref{fig:mrna-prot-correlation}B).
+
+This averaging effect has a simple explanation: if experimental noise drives
+down the mRNA--protein correlation, and noise is to some extent random between
+studies, then averaging together measurements from different studies will
+increase the correlation as random noise dilutes out and signal titrates in.
+However, exploiting averaging comes with hidden dangers when using these data.
+Averaging requires multiple measurements. Few protein datasets cover even half
+the genome, and incomplete data tend to be biased toward abundant proteins, as
+revealed by examining levels in a large dataset when restricted to proteins
+detected in smaller datasets (Fig~\ref{fig:mrna-prot-correlation}C); it is
+plausible that higher-expression proteins correlate more strongly with mRNA
+levels. We therefore checked for an averaging effect using a subset of the
+data with a minimum level of reproducibility, at least eight mRNA and eight
+protein measurements, which includes 549 genes. This high-coverage gene
+subset does encode more highly abundant proteins relative to the rest of the
+genome as assessed by western blotting (Fig~\ref{fig:mrna-prot-correlation}D). 
+As a benefit, however, changes in correlation due to averaging
+within this subset do not merely reflect underlying systematic changes in the
+expression levels of the analyzed genes. In this subset, the observed mRNA--
+protein correlation rises markedly as more measurements are averaged together
+(Fig~\ref{fig:mrna-prot-correlation}E), more than doubling in the apparent
+protein-level variance explained by mRNA level (from 33\% to 72\%) simply by
+averaging together more measurements of the same genes. These data strongly
+indicate that experimental noise substantially reduces the apparent
+correlation between mRNA and protein levels.
+
+\subsection*{Corrections for noise yield sharply higher correlation estimates}
+
+The foregoing analyses involve estimates uncorrected for noise, which as described in the Introduction do not properly estimate the true correlation between the variables being measured. We will first incorporate noise-aware estimates of the true correlation, and then address the more challenging problem of accounting for missing data to arrive at a true genome-scale estimate of the mRNA--protein correlation.
+
+Reduction of correlations by noise can be corrected using information
+from repeated measurements, assuming the noise is uncorrelated
+across measurements \cite{schmidt99,spearman04}. Quantitative
+corrections for correlation attenuation were first introduced more
+than a century ago by Spearman \cite{spearman04}, are widely used in
+the social sciences \cite{muchinsky96,schmidt99,zimmerman97}, and have
+found recent applications in biology
+\cite{Drummond2005, adolph07,archer08,archer07,behseta09,Vogel2010}. Given two
+measurements each of variables \(X\) and \(Y\), each with uncorrelated
+errors, the true correlation can be estimated using only correlations
+between the four measurements \(X_1\), \(X_2\), \(Y_1\), \(Y_2\) 
+% DAD: SI materials and methods, or just methods?
+(see \emph{Methods}):
+\begin{equation}
+  \hat{r}_{XY}^\text{true} = 
+  \frac{\sqrt[4]{r_{X_1Y_1} r_{X_2Y_2} r_{X_1Y_2} r_{X_2Y_1}}}%
+       {\sqrt{r_{X_1X_2} r_{Y_1Y_2}}}
+\end{equation}
+The correction reflects a simple intuition: the denominator quantifies
+the reliabilities of the measurements, which determine the maximum
+observable correlation, and the numerator quantifies the observed
+correlation using a geometric mean of four estimates and is divided by
+this maximum value to yield an estimate for the true value. The estimate
+is not itself a correlation coefficient, and may take values outside
+($-1$,$1$) due to sampling error \cite{schmidt99}. Also note that there is no $P$-value associated with this estimate; statistical testing for significant association using uncorrected correlation measures remains valid.
+
+To demonstrate and test Spearman's correction, we applied it to simulated data
+generated to mimic key features of mRNA and protein data, but with a known
+underlying correlation and known measurement reliability. We generated data
+for 5,000 simulated genes with a range of correlations and fixed reliability;
+a fixed correlation and a range of reliabilities; and a fixed correlation and
+reliability with a range of data missing at random, or non-randomly, with a
+detection bias against low-expression genes. We then measured the observed
+correlation, uncorrected for noise, and used Spearman's correction to estimate
+the true correlation. At each set of parameters, we generated 50
+transcriptome/proteome pairs to assess reproducibility.
+
+As shown in Fig~\ref{fig:spearman-sim}A--C, noise reduces correlations in a
+non-negligible way. Given an actual correlation of 0.9, and a reliability of 0.7, higher than the mean values
+for real data (cf. Fig~\ref{fig:correlation-overview}C), the observed 
+correlation has a mean of $0.631 \pm 0.009$
+(standard deviation), whereas Spearman's correction yields a median value of
+$0.901 \pm 0.007$, closely matching the true value. Spearman's correction performs well over a wide range of
+reliabilities (Fig~\ref{fig:spearman-sim}B) and when data are missing at
+random (Fig~\ref{fig:spearman-sim}C), cases where observed correlations
+provide a wide range of estimates that are all systematically incorrect. Smaller datasets lead to
+increased variability of the Spearman estimate due to sampling error (Fig~\ref{fig:spearman-sim}C). When faced with data biased toward detection of high-abundance mRNAs and proteins, Spearman's correction systematically
+underestimates the true correlation (Fig~\ref{fig:spearman-sim}D), as expected due to restriction of range effects.
+
+Using Spearman's correction on real data, we estimated mRNA--protein
+correlations for pairs of mRNA- and protein-level studies, obtaining a median corrected
+correlation of \(0.92\). Variability due to sampling error was 
+large for small datasets as expected (cf. Fig~\ref{fig:spearman-sim}C \& D), and
+decreased as dataset size increased, with estimates stabilizing for large
+datasets (\(>3000\) genes) at a mean of \(r=0.88\pm 0.02\)
+(Fig~\ref{fig:mrna-prot-correlation}A). This value is echoed by consideration of the
+largest dataset with two mRNA \cite{lipson09,yassour09} and two
+protein \cite{degodoy08,ghaemmaghami03} measurements each (Fig~\ref{fig:mrna-prot-correlation}B). For these
+data, the four observed mRNA--protein correlations are \(r=0.60\),
+\(0.63\), \(0.62\) and \(0.64\), and the correlation between mRNA
+and protein measurements are \(r_\text{mRNA}=0.86\) and
+\(r_\text{protein}=0.57\) respectively, yielding the corrected
+estimate \(\hat{r}^\text{true}=%
+\frac{\sqrt[4]{0.60\times 0.63\times 0.62\times 0.64}}%
+     {\sqrt{0.85\times 0.57}}=0.89\).
+
+As demonstrated, Spearman's correction, while useful, does not address biases
+due to data that are systematically missing. Spearman's correction also
+assumes uncorrelated errors, and thus has no mechanism for handling correlated errors
+arising due to, for example, protocol similarities within a study or use of
+similar measurement techniques between studies. Actual datasets show
+evidence for all of these effects (Fig~\ref{fig:correlation-overview}).
+
+
+\subsection*{A structured covariance model yields estimates of underlying correlation and of mRNA and protein levels}
+
+Extending estimates to the full genome, accounting for structured noise and
+non-randomly missing data, requires a more sophisticated approach. Even
+seemingly simple approaches to reduce noise, such as averaging measurements
+normalized to the same scale, are unworkable as strategies for estimating genome-scale 
+mRNA--protein relationships: only 16 proteins are detected by
+all 11 protein quantification studies, and these proteins are all highly
+abundant. Throwing out smaller datasets discards potentially valuable
+measurements, and it is unclear when to stop, since all datasets are
+incomplete to some degree.
+
+To address these challenges, we adapted structural equation modeling to admit
+nonrandomly missing data (see \emph{Methods}). We introduce a structured
+covariance model (SCM), adapted with important modifications from recent work
+\cite{Franks2014}, that explicitly accounts for structured noise arising from
+replicates and use of shared measurement techniques, explicitly estimates
+noise at multiple levels and the nonlinear scaling factors linking underlying
+variables, and allows inferences of latent covariance relationships with
+imputation of missing data (Fig~\ref{fig:nmar-modeling}).
+
+The SCM accurately estimates true correlations in simulated data when
+substantial data are missing nonrandomly, a case on which Spearman's
+correction produces severely biased estimates
+(Fig~\ref{fig:spearman-sim}D).  Fitting the SCM to real data
+yields estimates of whole-genome steady-state mRNA--protein
+correlation of \(r=0.926 \pm 0.004\)
+across all 5,854 genes for which an mRNA has been detected
+in at least one of the 38 mRNA quantitation experiments (Figure
+\ref{fig:mrna-prot-correlation}A). That is, mRNA levels explain 86\% of
+variation in protein levels at the whole-genome scale. We emphasize
+that the SCM does not involve any attempt to maximize the
+mRNA--protein correlation or any assumptions about the strength of the
+correlation.
+
+To examine the influence of low-coverage datasets on the correlation estimate, we re-fit the SCM on data restricted to studies with no more than 60\% or 80\% missing values (cf. Table \ref{tab:data}), resulting in essentially unchanged correlation estimates of $r=0.919$ and $r=0.933$, respectively. Including these smaller datasets does not alter these estimates significantly.
+
+\subsection*{Comparisons indicate accurate estimates and plausible imputations of mRNA and protein levels}
+
+The SCM integrates all data to produces mean and variability estimates of mRNA and protein
+levels, yielding a dataset in which mRNA levels have been quantified for 5,854 genes and protein levels have been quantified for 4,990 genes in at least one study.
+
+To evaluate the accuracy of these estimates, we linearly scaled them to molecules per haploid
+cell using high-quality published values for mRNA per cell and protein per cell. Estimates of the number of mRNA molecules per
+cell range from 15,000 to 60,000 molecules per cell \cite{holstege98,zenklusen08}. A more recent study argued that the earlier, lower estimate resulted from misestimation of mRNA mass per cell and average mRNA length, with ~36,000 molecules per cell as a revised estimate also supported by independent measurements \cite{miura08}. The higher estimate resulted from rescaling the lower estimate to match expression of five genes measured by single-molecule fluorescence \textit{in situ} hybridization (FISH) \cite{zenklusen08}. We adopted the 36,169 mRNA molecules per cell estimate
+\cite{miura08}. Scaled to 4$\mu$g of protein in $1.5\times10^6$ cells (2.7pg protein per yeast cell in cells roughly 30 $\mu m^3$ in size)
+\cite{Johnston1977}, SCM protein levels sum to just over 35 million protein molecules per haploid cell, similar to the 50 million molecules per cell estimated previously \cite{futcher99} within the variation in total protein extraction from haploid yeast cells (cf. \cite{vonderhaar02}, which estimates 4.95pg per cell).
+
+Scaled SCM per-gene means provide the best point-estimates of molecules per cell (Fig~\ref{fig:scm-vs-absolute}A), although the correlation between estimates of means is necessarily higher than the estimated true correlation, since each estimate contains error. For a more representative global view of mRNA and protein levels, we draw a sample from the SCM estimates according to each gene's mean and variance in levels (Fig~\ref{fig:scm-vs-absolute}B). Correlations between sampled mRNA and sampled protein levels ($r=0.923$) are consistent with the inferred underlying correlation.
+
+We then compared scaled SCM estimates to small-scale gold-standard, 
+independent measurements of absolute mRNA and protein levels not used in our
+analysis. (No genome-scale gold-standard measurements of mRNA
+or protein levels exist for yeast or any other organism.) SCM estimates of absolute mRNA levels matched
+FISH measurements well \cite{zenklusen08} (average difference of 1.2-fold between estimated and
+measured levels [Fig~\ref{fig:scm-vs-absolute}B], with one outlier estimate overshooting the FISH value by 1.7-fold). Notably, these results demonstrate that the FISH estimates are compatible with roughly 36,000 mRNA molecules per cell during exponential growth as reported \cite{miura08}, and do not require the almost two-fold higher number of cellular mRNAs extrapolated in the FISH study.
+
+Absolute protein levels for a set of 21 proteins differing up to 25,000-fold
+in cellular abundance have been measured using single-reaction monitoring
+(SRM) spiked with stable-isotope standards \cite{picotti09}. SCM estimates
+correlate better with these absolute levels (\(r=0.94\) between log-transformed values) than does any individual dataset. This includes the only
+study, using western blotting \cite{ghaemmaghami03}, which reports levels
+for all 21 proteins (\(r=0.90\)) (Fig~\ref{fig:scm-vs-absolute}C, average
+difference of 1.4-fold between SCM estimates and SRM measurements,
+compared to 1.8-fold using western blotting). Relative protein levels
+estimated by integrating multiple datasets using an alternative approach in
+which noise is not modeled \cite{wang12} correlate with absolute levels less
+well (\(r=0.88)\) than do the SCM estimates. The structured covariance
+modeling approach thus estimates steady-state cellular mRNA and protein levels
+with an unmatched combination of completeness and accuracy.
+
+To evaluate imputation of missing data, we focused on the 864 genes with a
+detected mRNA but no protein detected in any of the 11 studies.
+Some of these genes encode well-studied proteins such as the proteasomal
+regulator Rpn4p and the cyclin Cln3p, indicating  clear false negatives. For a systematic evaluation, we turned to ribosome profiling studies \cite{ingolia09}, which quantify ribosome-protected mRNA fragments normalized for gene length
+(ribosome density), providing an estimate of the mRNAs being actively
+translated \invivo. At
+% begin revision
+least one of five studies under compatible experimental conditions detects ribosomes in the
+coding sequence of 637 of these 864 genes, suggesting active translation. Normalized ribosome density for this restricted set of genes correlates with the imputed
+protein levels (Fig~\ref{fig:scm-vs-absolute}E, $r=0.55$), 
+% end revision
+despite the attenuating effect of range restriction. Because the missing protein data correspond to genes at the detection limit of
+these ribosome-profiling studies, we predict
+that many of the remaining genes will be found to produce proteins at low
+levels during exponential growth. The SCM estimates serve as predictions for the levels of these as-yet undetected proteins.
+
+\section*{Translational regulation widens the dynamic range of protein expression}
+
+Our results indicate that the true correlation between steady-state mRNA and
+protein levels in exponentially growing budding yeast is far higher than
+previously recognized, explaining the vast majority of variation in protein
+levels on a log scale. In many previous analyses, this would be equivalent to
+demonstrating a minor role for other forms of regulation: if the variation in
+protein levels were a pie, and mRNA levels took a slice, other forms of
+variation would get only the leftovers. As we will
+show, such competition is largely illusory.
+
+Positive evidence exists for strong post-transcriptional contributions to protein levels. The dynamic range of protein abundance
+is wider than mRNA abundance, which must reflect dynamic-range amplification by post-
+transcriptional regulation \cite{vogel12}. Indeed, wide per-gene variation
+exists in measurements of translational efficiency \cite{ingolia09,gerashchenko12, Gerashchenko2014}.
+
+The report that translational activity, estimated
+by ribosome profiling, explained more than twice the protein-level
+variation than did measured mRNA levels \cite{ingolia09} prompted
+% begin revision
+us to more closely examine these results. We reproduced these comparisons, and found that subsequent ribosome-profiling studies \cite{gerashchenko12,Gerashchenko2014,McManus2014,Subtelny2014} confirmed the strong predictive power of ribosome density for the protein levels originally employed, which came from a single study \cite{degodoy08} (Fig~\ref{fig:exponent-final}A). 
+% end revision
+We wondered whether these findings might reflect experimental noise that differed between the mRNA and ribosome-footprint measurements in the original study. Correlations
+using SCM-estimated protein levels are substantially higher for both
+SCM-estimated mRNA levels and ribosome density measured in all studies, consistent with reduction of noise in the SCM estimates (Fig~\ref{fig:exponent-final}A). SCM-estimated mRNA levels predict protein levels better ($r=0.926$) than any of the individual ribosome profiling studies (Fig~\ref{fig:exponent-final}A). 
+% begin revision
+This likely reflects remaining noise and systematic bias in the profiling studies, since using Spearman's correction to estimate the true correlation between ribosome density and protein level yields correlations of $r=0.88$ against SCM-estimated protein levels and $r=0.91$ using the largest two largest protein-level datasets, measured by mass-spectrometry and western blotting.
+These results suggest that, contrary to previous reports, measures of translation and mRNA level have essentially equivalent and quite strong predictive power for protein levels.
+% end revision
+
+However, major contributions to protein levels from mechanisms other than mRNA
+level become obvious upon inspection of the data. The dynamic range of
+protein expression (from fewer than 50 to more than 1,000,000 molecules per cell
+\cite{ghaemmaghami03,picotti09}) is wider than that of mRNA levels (\eg~from 0.1 to 89 molecules per cell in a landmark early study \cite{holstege98}). In the 
+% begin revision
+SCM estimates, the full range of mRNA expression is roughly 10,000-fold (0.02 to 253 molecules per cell on average), whereas the range of protein expression is more than 1,000,000-fold (an average of 0.4 molecules to 1.3 million molecules per cell). 
+Since both mRNA and protein are roughly lognormally distributed, the ratio of log-transformed ranges, 1.6, yields a rough measure of relative variation. (This relative variation is unchanged when attention is restricted to the central 95\% of the mRNA and protein distributions to mute outlier effects.) Individual mRNA and protein datasets vary but confirm similar differences in dynamic range (S3 Fig).
+% end revision
+We address more representative estimates of relative dynamic range below. As previously noted \cite{vogel12}, this dynamic-range amplification must involve post-transcriptional variation.
+
+The standard use of a logarithmic scale raises some questions about the interpretation of dynamic range. What does a ten-fold difference mean, if it is between 0.01 to 0.1 molecules per cell rather than between 1 and 10 molecules per cell? Are fractional numbers meaningful? We proceed as though they are. Fractional molecules per cell in a population average may indicate mRNAs or proteins present in only a fraction of cells in the population, which can arise in many ways, from conditional expression (\eg~during a segment of the cell cycle) to incomplete repression (leakiness). Here, estimates of levels reflect the measurements but confer no particular interpretation. We note that no obvious break or cutoff exists in the data or the SCM estimates to suggest a gene-expression threshold below which the biology changes qualitatively.
+
+\section*{Translational regulation multiplies transcriptional signals with high fidelity}
+
+A consequence of two facts---the higher dynamic range of protein levels than of mRNA levels, and the strong log-log linear correlation between the two---is that steady-state protein levels cannot be (even noisily) proportional to
+steady-state mRNA levels at the genome scale. In the standard model ($P_i = \frac{\tau_i}{\delta_i}M_i$ with protein $P$ and mRNA $M$ for gene $i$, cf.~Equation~\ref{eq:steady-state-protein}), steady-state protein levels will be roughly proportional to steady-state mRNA levels on a log-log scale assuming translation rates and degradation rates are uncorrelated with mRNA levels. This is most easily seen considering the case of constant translation and degradation rates ($\tau_i = \tau$ and $\delta_i = \delta$, respectively) across all genes, such that $P_i = \frac{\tau}{\delta}M_i^1$  where we have made explicit the exponent of 1. In this case, $\ln P_i = 1\times\ln M_i + \ln\left(\frac{\tau}{\delta}\right)$. Deviations from proportionality can be captured by deviations from a log-log slope of 1.
+
+As described in the Introduction, several studies have estimated slopes very near 1, but have not accounted for error-induced systematic underestimation of slopes due to regression-dilution bias \cite{hutcheon10}. We therefore used a noise-tolerant regression technique closely related to principal
+component analysis known as ranged major-axis (RMA) regression
+\cite{legendre98}, which yielded a range of slopes systematically higher than the ordinary least-squares regression slopes (Fig~\ref{fig:exponent-final}B,C) and have a median of 1.54. Unlike OLS, RMA regression permits error in both variables and is symmetric, such that regression of $Y$ on $X$ produces the inverse slope to that obtained by regression of $X$ on $Y$. Other techniques with the same symmetry property but different technical assumptions each yield slopes substantially larger than 1
+% begin revision
+and larger than OLS estimates 
+% end revision
+(S2 Fig). The estimated slopes for individual pairs of datasets span a wide range, even using RMA and limiting attention to large datasets (Fig~\ref{fig:exponent-final}B), suggesting the existence of systematic biases, toward increased and decreased variance, separating these studies. The presence of such biases in protein-quantitation studies, though not their precise source, has been previously described \cite{Ahrne2013}.
+
+The SCM approach, which accounts for both noise and missing data, yields an estimated slope of \(1.69\), compatible with the range of estimates from noise-aware methods on individual pairs of datasets (Fig~\ref{fig:exponent-final}B,C) and also similar to the expectation (1.6) derived from examination of the relative dynamic ranges above. Steady-state protein levels 
+therefore reflect a dramatic multiplication of the transcriptional signal: rather than competing with transcriptional regulation as often assumed, post-transcriptional regulation cooperates.
+
+% begin revision
+If translational activity drives much of this cooperative amplification, higher-expressed mRNAs must tend to be more highly translated. Such an effect was noted in passing in the earliest ribosome-profiling study \cite{ingolia09}. Several additional such studies satisfying our experimental criteria have been performed since \cite{gerashchenko12,Gerashchenko2014,McManus2014,Subtelny2014}, which allows us to more thoroughly quantify the relationship between levels of translation and expression. The coverage of these datasets is excellent, so we focus on the 4,435 genes for which all five studies report ribosome density measurements.
+
+Using these data, we found a markedly supralinear relationship between relative translational activity (estimated by median ribosome density), and SCM-estimated mRNA levels (Fig~\ref{fig:exponent-final}D) with a log-log slope of 1.68. As this result implies, translational efficiency (TE) (median ribosome density divided by median normalized mRNA levels within these same studies \cite{ingolia09,gerashchenko12}) increases with SCM-estimated mRNA level (Fig~\ref{fig:exponent-final}E, Spearman rank correlation $r = 0.65$), with some evidence for a ceiling or saturation effect at high expression levels. These results provide strong evidence that highly expressed genes generate highly translated mRNAs.
+
+RMA regression of ribosome density against SCM mRNA levels yielded a slope of 1.70, compared to a slope of 1.72 of SCM protein levels against mRNA levels (Fig~\ref{fig:exponent-final}F), suggesting that increases in translational activity accompanying elevated mRNA expression are sufficient to generate the broader dynamic range of protein levels relative to mRNA levels.
+
+A subtle possibility is that the SCM estimates have a compressed dynamic range relative to true values, which would inflate both the slope of the translational-activity--mRNA relationship and the correlation between TE and mRNA levels. To address this possibility, we exploited the fact that three of the accompanying mRNA-level measurements in the ribosome-profiling studies \cite{gerashchenko12,McManus2014,Subtelny2014} were not used in our SCM estimates and therefore constitute an independent, modern, replicated mRNA dataset. The median of these recent measurements correlate well with our SCM estimates ($r=0.90$, Pearson correlation on log-transformed values) and the SCM and recent measurements have statistically indistinguishable distributions (S4 Fig). High- and low-expression genes deviate slightly consistent with experimental error in RNA-seq at the low end and compression of the SCM estimates at the very high end. We regressed ribosome densities and protein levels against these recent mRNA levels.  Slopes were lower but substantially above 1.0 ($1.46 \pm 0.02$ and $1.49 \pm 0.03$ [95\% confidence intervals] for translational activity and SCM protein levels versus recent mRNA measurements, respectively, Fig~\ref{fig:exponent-final}F). Importantly, calculation of the slope of translational activity versus recent mRNA level does not involve our SCM measurements at all, and thus provides independent evidence that translational activity levels have a wider dynamic range than mRNA levels.
+
+To provide an overall view of relative dynamic ranges, we plotted the distribution of estimated numbers of steady-state mRNAs and proteins per gene. We used ribosome density measurements to estimate the number of ribosomes engaged in translating each mRNA species in a typical haploid cell (Fig~\ref{fig:exponent-final}G), assuming 200,000 ribosomes per cell \cite{Warner1999} of which 85\% are engaged in active translation (see Methods). Both SCM and recent mRNA levels show a similar dynamic range for most mRNA species, and a narrower distribution than ribosome or protein levels. 
+% end revision
+
+In summary, measured variation in translational activity correlates strongly with mRNA level and is sufficient to quantitatively account for the strong nonlinear relationship between mRNA levels and protein levels.
+
+\section*{A toy model illustrates non-independent contributions from transcription and translation}
+
+The analysis above illustrates a fundamental asymmetry: although
+absence of post-transcriptional regulatory processes would produce a
+perfect mRNA--protein correlation \cite{desousa09}, a perfect mRNA--protein 
+correlation need not indicate a negligible post-transcriptional
+contribution to relative protein levels. 
+
+Contrary to the conclusions of many analyses, it is possible for mRNA  levels
+and (for example) translation rates to each explain more  than 50\% of
+protein-level variation. Both processes could each contribute 100\% of
+protein-level variation. All that is required  is that their contributions not
+be independent.
+
+To see this, consider the following toy model for regulation of protein levels which does not involve assuming that translation rates are independent of mRNA levels:
+
+\begin{align*}
+\frac{\partial P_i}{\partial t} &= \tau_i M_i - \delta_i P_i &&\text{standard model, cf. Eq.~\ref{eq:protein-regulation}}\\
+\intertext{with}
+\delta_i &= \delta &&\text{constant degradation rate}\\
+\tau_i &= \alpha (M_i \epsilon_i)^\gamma &&\text{translation rate rises nonlinearly with mRNA level}\\
+\ln \epsilon_i &\sim \mathcal{N}(0,\sigma) &&\text{noisy evolved correlation between mRNA levels and translation rates}\\
+\end{align*}
+
+Despite appearances, the functional relationship between translation rates and mRNA levels does not imply or depend on mechanistic properties of transcription and translation. All variance in this model (as in all analyses in the present work) derives from differences between genes, so the functional relationship merely describes an empirical correlation. As described in more depth in the Discussion, such a correlation can arise if genes have evolved differential translational efficiencies tuned to multiply transcriptional signals.
+
+In this toy model, with $\epsilon_i = 1$ (or more generally $\sigma=0$), translation rates and mRNA levels reinforce each other perfectly albeit nonlinearly. Under these conditions, steady-state mRNA levels explain 100\% of the steady-state protein-level variation on a log scale. Translational regulation also explains 100\% of the protein-level variation.
+
+% DAD: check
+\begin{align*}
+P_i &= \frac{\alpha M_i^\gamma}{\delta}M_i =  \frac{\alpha}{\delta} M_i^{1+\gamma}&&\text{steady-state protein levels}\\
+\ln P_i &= \ln \frac{\alpha}{\delta} + (1+\gamma) \ln M_i &&\text{log protein levels are linearly related to log mRNA levels}\\
+&=  -\ln \left(\delta\alpha^{\frac{1}{\gamma}}\right) + \left(1 + \frac{1}{\gamma}\right)\ln \tau_i&&\text{log protein levels are linearly related to log translation rates}
+\end{align*}
+
+Adding variation to translation rates ($\sigma>0$) and fixing other parameters allows close reproduction of the SCM estimates on several dimensions (Fig~\ref{fig:toy}A,B; source code including parameters presented in \emph{Methods}). Both datasets have similar mRNA--protein correlations ($r=0.926$ for experimental data, $r=0.922$ for toy model), similar log-log slopes ($1.69$ for both), and similar dynamic ranges for mRNA and protein levels.
+
+% begin revision
+The critical difference between this model and the standard model for protein-level variation, Eq.~\ref{eq:protein-regulation}, is the evolved strong positive correlation between mRNA levels and translational efficiency. This, too, is evident in experimental data when calculating translational efficiency (Fig~\ref{fig:toy}C, RMA slope = $0.71$, Spearman $r=0.62$). The correlation is mirrored by the toy model, where translation rate per mRNA and mRNA level can be directly compared (Fig~\ref{fig:toy}D; RMA slope = $0.74$, Spearman $r=0.74$). The experimental data are substantially missing at the low end, which will tend to attenuate the correlations.
+
+The toy model does not capture the apparent saturation of translational efficiency at high mRNA levels (Fig~\ref{fig:toy}C). Assuming this effect is real, other mechanisms, such as decreased rates of protein turnover, must be added to the toy model to even better reflect the data, which we leave for future detailed modeling.
+% end revision
+
+\section*{Discussion}
+
+Our results demonstrate that the frequently reported result that
+steady-state mRNA levels explain less than half (30--50\%) of the
+variation in protein levels constitutes a significant underestimate. In exponentially growing budding yeast, the best-studied system and source of many of these claims, we find that the true
+value at the whole-genome scale, taking into account the reductions in correlation due to
+experimental noise and missing data, is closer to 85\%. 
+
+Many thoughtful studies have tackled this problem before, arriving at results that match ours on certain dimensions, but via quite different approaches. Previous work has employed versions of Spearman's correction \cite{Vogel2010}, contended with differences in dynamic range by adopting nonparametric approaches \cite{lu07,desousa09}, and integrated multiple datasets \cite{brockmann07, lu07, siwiak10, wang12}. All of these works have reached conclusions which differ from the portrait assembled here.
+
+Our analysis transcends these studies on several fronts. The present study incorporates more measurements than any previous work. We distinguish between correlations between measurements and estimates of underlying correlations accounting for between-study reliability, a critical difference that has largely eluded previous work. The structured covariance model natively handles nonrandomly missing data to provide more complete and accurate molecules-per-cell estimates than previous studies. Most importantly, we have not relied on the common but mistaken assumption that different modes of regulation act independently.
+
+A consistent approach in the literature has been to pit transcriptional and post-transcriptional variation against each other, both analytically and rhetorically (\eg, ``transcriptional regulation is only half the story'' \cite{plotkin10}). As we have shown, the data do not fit this competitive paradigm, and even invalidate some of its analytical assumptions, such as independence and non-collinearity. The competitive versus cooperative aspects of post-transcriptional regulation come to the fore when considering the dynamic ranges of gene expression. A wider range of protein than mRNA levels is well-established in a range of organisms \cite{Vogel2010, schwanhausser11, marguerat12}, and our results further cement this observation. However, dynamic-range variation could be achieved in different ways, captured by two extremes. At one extreme, post-transcriptional regulatory variation is uncorrelated with transcriptional regulation, reducing the contribution of mRNA levels to protein levels. At the other extreme, post-transcriptional variation correlates strongly with transcriptional regulation, multiplying the transcriptional signal with little interference. In both cases, post-transcriptional regulation amplifies the dynamic range of gene expression, but only in the latter case does it also faithfully amplify the mRNA signal itself. Our data clearly and convergently indicate that the biology, at least for this organism under these conditions, lies toward the latter, cooperative extreme.
+
+Coordinated transcriptional and translational signal amplification may explain a range of other observations, particularly regarding proteins-per-mRNA (PPM) ratios, which are frequently used to isolate signs of post-transcriptional regulation. Because post-transcriptional amplification correlates strongly with mRNA levels, PPM will remain correlated with mRNA, and as a consequence, any sequence features correlated with mRNA will tend to correlate with PPM as well. As an example, amino-acid composition correlates with PPM in yeast\cite{lu07}, with valine/alanine/glycine frequencies higher in high-PPM sequences and leucine/asparagine/serine frequencies lower in high-PPM sequences. These are precisely the same amino acids previously shown to vary most strongly in frequency, in the same directions, with increasing mRNA abundance \cite{Akashi2003}. Similarly, many other correlates of PPM are also correlates of mRNA levels (codon bias, tRNA adaptation), including mRNA level itself \cite{brockmann07, desousa09}. For features such as codon bias, which arises in response to selection for translational efficiency \cite{Wallace2013}, association with increased PPM might seem an obvious causal link, but because codon bias strongly associates with mRNA level, the null expectation is that it will correlate with PPM even if codon bias had no effect on translational activity at all. Analyses of the determinants of protein levels must contend with the collinearity and non-independence of contributing processes.
+
+The strong correlation between steady-state mRNA and protein levels may seem
+to validate the use of mRNA levels as relatively faithful proxies of protein
+levels. We urge caution, as a tempting conclusion---that mRNA changes serve as
+faithful proxies for protein changes---does not follow. Attempts to infer the
+correlation between mRNA and protein changes from steady-state mRNA--protein correlations confuse two distinct and complex phenomena. The genome-scale relationship between mRNA levels and protein levels is an evolved
+property of the organism, reflecting tuning by natural selection of each
+gene's transcriptional and post-transcriptional controls, rather than a
+mechanistic input-output relationship between mRNA and protein mediated by the
+translational apparatus. Two genes with steady-state mRNA levels differing by
+10-fold may have 500-fold differences in protein levels due to evolved
+differences in their post-transcriptional regulation. These evolved steady-state differences do not
+predict how the protein levels for these genes will change if both mRNAs are induced 10-fold, because evolution does not occur on this timescale; the changes in protein levels are instead dictated by the cellular mechanisms of translation.
+
+An important intermediate case between the evolutionary and mechanistic cases is variation in mRNA and protein levels in individuals across a genetically diverse population. The potential for correlations between mRNA and protein relies upon substantial true variance in mRNA levels. In population-variation studies, one expects relatively few variants and resulting variation far lower than the orders of magnitude considered here. Correspondingly, in such studies mRNA-change--protein-change correlations may be low even given a strong underlying link between mRNA and protein levels.
+
+If the nonlinear multiplication of mRNA levels into protein levels is an evolved property, what mechanism(s) has evolution exploited? The present work supports a particular class: the increased density of ribosomes on high-expression mRNAs, with variation sufficient to account for the nonlinearity, suggests increased rates of translation initiation as the major contributor. Correspondingly, recent work has shown that in yeast and a wide range of other organisms, the stability of mRNA structures in the 5' region weakens as expression level increases, favoring more efficient translation initiation \cite{gu10}, and wide variation in heterologous protein levels can be achieved by varying mRNA stability near the initiation site \cite{Goodman2013, Kudla2009}.
+
+Several limitations still attend our approach. By assuming single
+multiplicative errors per experiment, we ignore variation in per-gene error
+which may be systematically different between low- and high-expression genes
+and/or systematically affect particular measurement techniques
+\cite{Ahrne2013}. For example, limitations in the dynamic range of a measurement technique will tend to compress the resulting measurements, causing such systematic errors. Our model does not contend with distortions
+possibly imposed by alterations to 3' regulatory signals  (\eg~tagging with affinity epitopes \cite{ghaemmaghami03} or fluorescent proteins
+\cite{newman06} to enable protein detection), or with variability in quantification due to
+propensities of particular mRNAs to be more efficiently sequenced or for
+their protein products to be unusually amenable to mass-spectrometric
+detection. The lack of any gold-standard genome-scale measurements hinders
+detection of such biases. Our results underscore the urgent need for such standard
+measurements of absolute mRNA and protein levels to enable
+identification and correction of systematic errors in established and emerging
+gene-expression measurement techniques. More sophisticated models for experimental error at many levels, which would be informed by but need not wait for such gold-standard measurements, also promise to provide higher-fidelity biological estimates from existing data.
+
+We infer a higher mRNA--protein correlation ($r=0.93$) here than when using an
+earlier, related model \cite{Franks2014} ($r=0.82$), a difference we attribute
+to two factors. First, the present analysis stratifies by measurement
+technology using all data, whereas the previous estimate did not, although in
+that study, stratifying by technology on a reduced dataset yielded $r=0.86$
+\cite{Franks2014}. Here, using all data and treating technology-related
+experimental noise separately from other sources of noise, we are able to
+average out more systematic technology biases, likely producing superior
+estimates of the associated measurement variability and reducing noise-induced
+attenuation of the mRNA--protein correlation. Second, in the present analysis,
+population-averaged protein levels and mRNA levels are constrained to each
+have a single underlying variance, whereas in the earlier study each
+experimental replicate had a separate variance. Inference of artificial
+experiment-specific variances spread variability across experiments
+(overfitting), where in the present analysis, we adopt the more biologically
+plausible stance that the true underlying mRNA and protein population-average
+distributions each have a characteristic variance which is measured by each
+experimental replicate. The present model, deprived of extra parameters,
+infers higher correlations.
+
+Our study considers a single well-studied growth condition for a single well-
+studied organism, raising questions about how to generalize this work. The
+principles of accounting for noise, but not precise results, can and should be
+extrapolated to regulatory contributions in other settings and other
+organisms. An influential study on mouse fibroblasts measured mRNA and
+protein levels and degradation rates for thousands of genes
+\cite{schwanhausser11}, concluding that mRNA levels explained 41\% of  the
+variation in protein levels, with most variation instead explained by
+translational regulation. Our results indicate many ways in which the results
+of this study could be profitably revisited. Indeed, a recent follow-up study
+concluded that, once  effects of error and missing data were accounted for,
+mRNA levels explain 75\% or more of the protein-level variation in these data
+\cite{li14}.
+
+% DAD: something about mRNA and protein from the same sample?
+
+The protein regulatory environment of rapidly dividing cells differs from that
+of many other cellular states. The faster cells divide, the more rapidly
+protein molecules partition into daughter cells, adding an approximately
+constant amount to all protein removal rates and consequently reducing
+between-gene variation in these rates. This will tend to increase the
+dependence of protein levels on mRNA levels, and decrease the dependence on
+degradation rates, during proliferation.
+
+In addition to cellular
+state, regulatory contributions depend on timescale.  Post-transcriptional
+processes must dominate protein-level changes within seconds to a few minutes
+of a stimulus or signal; transcriptional responses, particularly in eukaryotes, where transcription and translation are uncoupled,
+are all but powerless at this
+timescale. As such, the notion of general determinants of protein levels
+without regard to timescale has questionable utility. A final theme emerging from
+our study is that careful empirical studies, coupled with noise-aware analyses,
+are needed to determine regulatory contributions for any cellular condition of
+interest at any timescale.
+
+
+
+
+
+% You may title this section "Methods" or "Models". 
+% "Models" is not a valid title for PLoS ONE authors. However, PLoS ONE
+% authors may use "Analysis" 
+
+
+\section*{Methods}
+
+\subsection*{Reliability}
+
+Let us assume we wish to measure latent variables $\phi$ and $\psi$ but, due to
+noise, actually observe variables $X = \phi+\epsilon_X$ and $Y=
+\psi+\epsilon_Y$ where the random noise variables $\epsilon_X$ and $\epsilon_Y$
+are uncorrelated and mean zero.
+The reliability
+\begin{equation}
+\alpha_X=\frac{\Var(\phi)}{\Var(X)} =
+\frac{\Var(\phi)}{\Var(\phi) + \Var(\epsilon_X)}
+\end{equation}
+quantifies the ratio of signal variance to total (signal plus
+noise) variance in $X$. Given two random variables $X_1$ and $X_2$
+representing replicate measurements of $\phi$, the latent (true)
+variance is
+$\Cov(X_1,X_2)=\Cov(\phi+\epsilon_{X_1},\phi+\epsilon_{X_2}
+)=\Cov(\phi,\phi)=\Var(\phi)$, where the error terms vanish because
+they are uncorrelated by assumption. Thus, the Pearson correlation between
+replicates is
+\begin{align*}
+\rho_{X_1,X_2} & = \frac{\Cov(X_1,X_2)}{\sqrt{\Var(X_1) \Var(X_2)}}
+ = \frac{\Cov(\phi,\phi)}{\sqrt{\Var(X_1) \Var(X_2)}} \\
+ & =\sqrt{\frac{\Var(\phi)}{\Var(X_1)} \frac{\Var(\phi)}{\Var(X_2)}}
+ = \sqrt{\alpha_{X_1}\alpha_{X_2}}, \numberthis
+\end{align*}
+which is the geometric mean of the reliabilities of the two measurements.
+
+\subsection*{Spearman's correction}
+
+We wish to infer the Pearson correlation coefficient between latent
+variables
+$\rho_{\phi,\psi} = \frac{\Cov(\phi,\psi)}{\sqrt{\Var(\phi)\Var(\psi)}}$
+but, due to noise, we observe random variables
+\begin{align*}
+  \rho_{X,Y} & = \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}} \\
+  & = \frac{\Cov(\phi,\psi)}{\sqrt{(\Var(\phi) +
+      \Var(\epsilon_X))(\Var(\psi)+\Var(\epsilon_Y))}} \\
+  & \le \rho_{\phi \psi}. \numberthis
+\end{align*}
+with equality only when $\Var(\epsilon_X)=\Var(\epsilon_Y)=0$ (\ie~there is
+no noise).  
+
+Uncorrelated noise has no average effect on the numerator because
+errors cancel (see above), but the error terms in the denominator do
+not cancel. This effect additively inflates the variances in the
+denominator, biasing the observed correlations downward relative to
+the truth.  Given the reliabilities $\alpha_X$ and $\alpha_Y$, Spearman's correction is
+given by 
+\begin{equation}
+\rho_{\phi \psi} =\frac{\rho_{XY}}{\sqrt{\alpha_X \alpha_Y}}
+\end{equation}
+
+To estimate $\rho_{\phi \psi}$, we need estimates of $\rho_{XY}$,
+$\alpha_X$ and $\alpha_Y$.  A natural estimator replaces
+these population quantities with the sample correlation coefficients, $r_{xy}$,
+$\hat{\alpha}_x$ and $\hat{\alpha}_y$ with 
+\begin{eqnarray*}
+\hat{\alpha}_x &=& r_{x_1,x_2}\\
+\hat{\alpha}_y &=& r_{y_1,y_2}\\
+\end{eqnarray*}
+
+where $x_1$, $x_2$ are realizations of $X$ and $y_1$,$y_2$ are
+realizations of $Y$.  These replicates are used to estimate reliabilities.
+
+The true correlation, $\rho_{\phi,\psi}$, can then be
+estimated using only correlations between measurements:
+\begin{align*}
+ \hat{r}_{\phi \psi} &= \sqrt{\frac{r_{x_1 y_1}r_{x_2 y_2}}{r_{x_1 x_2}r_{y_1 y_2}}} \\
+  &= \sqrt{\frac{r_{x_1 y_1}r_{x_2 y_2}}{\hat{\alpha}_{x}\hat{\alpha}_{y}}} \\
+\end{align*}
+We extend this estimate to
+\begin{equation*}
+\hat{r}_{\phi \psi} = \frac{\sqrt[4]{r_{x_1 y_1}r_{x_2 y_2}r_{x_1
+      y_2}r_{x_2 y_1}}}{\sqrt{\hat{\alpha}_{x}\hat{\alpha}_{y}}}
+\end{equation*}
+which has the further desirable properties of exploiting all pairwise
+correlations and being independent of the choice of indices.
+
+% begin revision
+Taking this approach to its logical conclusion, given a set of $N$ measurements of $\phi$ and 
+$M$ measurements of $\psi$, we propose the estimator 
+\begin{equation*}
+\hat{r}_{\phi \psi} = \frac{\left({\prod_{i,j}^{N,M}r_{x_i, y_j}}\right)^{\frac{1}{N\times M}}}{\bigg(\prod_{i<i'}^{N}r_{x_i,x_{i'}}\bigg)^{\frac{1}{N(N-1)}}\bigg(\prod_{j<j'}^{M}r_{y_j,y_{j'}}\bigg)^{\frac{1}{M(M-1)}}},
+\end{equation*}
+where the numerator is the geometric means of all pairwise correlations, and the demoninator is the square root of the product of the geometric means of the pairwise reliability estimates (correlations between measurements) for each variable.
+% end revision
+
+\subsection*{Data collection}
+
+We gathered 38 measurements from 13 studies measuring mRNA expression, and 20 measurements from 11 studies
+measuring protein concentrations, yielding a total of
+58 high-throughput measurements of mRNA and protein levels from a maximum of 5,854 genes 
+in budding yeast. The measurements were taken using
+different technologies including custom and commercial microarrays, competitive PCR,
+high-throughput RNA sequencing, flow cytometry, western blotting, scintillation counting of $^{35}$S-labeled protein on 2D gels, and liquid chromatography coupled to tandem mass spectrometry (LC-MS/MS) using a range of labeling and quantification techniques. All yeast cultures
+were haploid \species{S.cerevisiae} growing in shaken liquid rich medium with glucose 
+between 22\celsius~and 30\celsius~and sampled during the exponential growth
+phase. Details of the datasets are summarized in Table \ref{tab:data}.
+
+For analytical purposes, we treat data from one study \cite{lipson09} which performed two independent measurements using different methods as two studies (RNA-Seq and microarray), one per method. This study's RNA-Seq employed a single-molecule sequencing method, smsDGE; we treat this as an RNA-Seq dataset.
+
+% begin revision
+We downloaded ribosome-profiling data from the primary sources for five studies \cite{ingolia09, gerashchenko12, Gerashchenko2014, McManus2014, Subtelny2014}. Within-study replicates were averaged; for one study of translational inhibitors \cite{Gerashchenko2014}, the no-inhibitor and 1$\times$-inhibitor replicates were averaged. Summary ribosome density and mRNA levels for these datasets were computed by log-transforming all instances of each type of measurement, subtracting the grand median value, and exponenentiating the per-gene median of the resulting values. To ensure the measurements were independent of SCM estimates, we excluded the mRNA levels from Ingolia and colleagues from the mRNA estimates, leaving three studies (one ribosome-profiling study did not report mRNA levels \cite{Gerashchenko2014}). To preserve the measured dynamic range in the data, no scaling of variance was performed. Translational efficiency was computed as the median normalized ribosome density (five studies) divided by the median normalized mRNA level (three studies), ensuring these results are independent of the SCM estimates.
+
+To estimate the number of ribosomes translating each mRNA species, we multiplied median ribosome densities (which are proportional to ribosomes per nucleotide) by gene length, then normalized the resulting distribution to sum to 200,000 ribosomes per haploid cell \cite{Warner1999}. We further assumed that approximately 85\% of ribosomes are engaged in active translation during rapid growth \cite{Frank1978}.
+% end revision
+
+Raw data (with missing values), data normalized and imputed using the SCM, and merged molecules-per-cell estimates are archived in Dryad (http://datadryad.org) with DOI doi:10.5061/dryad.d644f.
+
+\subsection*{Statistical analysis}
+
+All analyses were carried out using R \cite{rcore14} using custom scripts which may be downloaded from GitHub (\texttt{http://github.com/dad/mrna-prot}). Regression analyses using major-axis (MA), scaled major-axis (SMA), and ranged major-axis (RMA) regression were performed using the package \texttt{lmodel2}. RMA was performed using interval ranges.
+
+\subsection*{The structured covariance model (SCM)}
+
+The model has two components: an observation model
+$p(I_{i,j}|X_{i,j})$, which provides the probability of observing
+a value for mRNA/protein $i$ in replicate $j$, given the underlying
+mRNA/protein level, and a hierarchical model
+$p(X_{i,j}|\dots)$ for the underlying mRNA/protein levels themselves.
+The full model is specified as
+%
+\begin{align}
+\label{eq:X} X_{i,j} & = L_{i,\lj} G_{\lj} + T_{i,\tj} \nonumber\\
+        & \phantom{{}=} + E_{i,\kj} + R_{i,j} + \nu_{j}  \\
+\label{eq:L} \vec{L}_i & \sim \mathcal{N}_{2}(0,\mat\Psi)\\
+\label{eq:T} T_{i,t} & \sim \mathcal{N}_{N_T}(0,\tau_{t})\\
+\label{eq:P} E_{i,k} & \sim \mathcal{N}(0,\xi_{k})\\
+\label{eq:M} R_{i,j} & \sim \mathcal{N}(0,\theta_{j})\\
+\label{eq:obs} p(I_{i,j} = 0 |X_{i,j}=x) & =
+   \frac{1}{1+\exp(-\eta^0_{\kj}-\eta^1_{\kj} X_{i,j})}.
+\end{align}
+
+Random variables $L_{i,\l}$ correspond to the true denoised protein
+($l=1$) and mRNA ($l=2$) levels, for mRNAs and proteins
+$i=1,\dots,N$, and $\vec{L}_i=[L_{i,1},L_{i,2}]'$.
+The random variables $T_{i,t}$ and $E_{i,k}$ capture common
+technological variation and batch effects, respectively,
+$t=1,\dots,N_t$, $k=1,\dots,N_E$. $R_{i,j}$ are experimental noise for
+replicate $j=1,\dots,N_R$. 
+
+Both technology effects and batch effects between experiments are
+assumed to be independent, $\Cov(T_{i_1,t_1},T_{i_2,t_2})=0$ if
+$t_1\ne t_2$, and $\Cov(E_{i_1,k_1},E_{i_2,k_2})=0$ if $k_1\ne k_2$. 
+Measurement noise is independent between replicates,
+$\Cov(R_{i_1,j_1},R_{i_2,j_2})=0$ if $j_1\ne j_2$.
+
+The parameters $\nu_{j}$ corresponds to the normalizing constants of
+the mRNAs/proteins within a replicate (on the log-scale,
+normalizing constants become offsets). The coefficient $G_{l}$
+represents the log-variance of the denoised true mRNA or protein.  The
+ratio $A = \frac{G_{abund}}{G_{abund}}$ represents the amount of
+post-transcriptional amplification of mRNA to protein.  At steady
+state we expect $$ P_i \approx M_i^A$$ for protein $P_i$ and mRNA
+$M_i$.
+
+This model falls into the class of models that were extensively studied
+in an earlier work \cite{Franks2014}. The results are largely insensitive to deviations from
+parametric modeling assumptions and to several details of prior specifications.
+
+\subsubsection*{Missing data model}
+
+Equation~\ref{eq:obs} models the probability that measurement
+$X_{i,j}$ is missing, $p(I_{i,j} = 0 |X_{i,j}=x)$, as a logistic function of the
+value of the measurement.  This data is \emph{not} missing at random
+(NMAR) since the probability of missingness is a function of the
+(possibly missing) value.  Such a missingness model is said to be
+\emph{non-ignorable}.  The parameters of the missing data mechanism,
+$\eta^0_{k}$ and $\eta^1_{k}$, and value, $X_{i,j}$, uniquely determine the
+probability that the measurement is observed.  For instance, when
+$X_{i,j} = \frac{\eta_0}{\eta_1}$, then the missingness probability $p(I_{i,j} = 0 |X_{i,j}=x) = 0.5$.
+
+
+\subsubsection*{Prior specifications}
+
+To complete the model specifications we place priors on $\mat\Psi$,
+$\tau_{t}$, $\xi_{k}$, $\theta_{j}$, $\eta^0_k$ and $\eta^1_k$. We use
+either flat or weakly informative priors on all parameters so as to
+bias the inference as little as possible.  For the parameters
+$\eta^0_k$ and $\eta^1_k$ of the logistic observation model we use a
+Cauchy prior with mean zero and scale 2.5 as suggested by
+\cite{gelman08}.  The role of this prior is to regularize the slope of
+  the logistic regression in cases that have a sharp cutoff.
+  We assume flat priors on the scaling factors,
+$G_k$, and the measurement bias parameters $\nu_j$. For the replicate
+and experiment variances $\theta_j$ and $\xi_k$ we use independent
+conjugate Inv-Gamma(3/2, 3/10) prior.  Finally, for the estimand of
+interest, we assume $\mat \Psi$ is a priori drawn from the set of
+correlation matrices with marginally uniform correlations
+\cite{barnard00}. 
+The priors for the variances are standard Inverse-Gamma priors, and
+  they are weak. They correspond to three degrees of freedom,
+  i.e.~three data points, and a scale of 1/5. Essentially their role is
+  avoid extreme values at the beginning of the MCMC chain.
+The prior on the correlation $\mat \Psi$ is critical, since this the
+  main quantity of interest. The standard prior for normal covariance
+  matrices is an Inverse-Wishart distribution. For this prior the variances (fixed to
+  1 in our case) are associated with the correlations. To avoid a strong
+  prior influence on the correlation, we used a prior that is uniform, as
+  suggested by \cite{barnard00}.
+
+In summary, our priors are weak and thus have little impact on the final results. We use conjugate priors, and in terms of pseudo-counts, these represent a small fraction of the total observed data in each measurement.
+
+\subsubsection*{Algorithm}
+MCMC inference in the SCM is done using a Gibbs sampler.
+The exact conditional draws performed in each time step are:
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetInd{1.5em}{1em}
+  \Repeat{desired number of samples}{
+    \textbf{1. Draw multivariate responses:}\;
+    \Indp\ \For{$i\in 1,\dots,N$, $t\in 1,\dots,N_T$, $k\in 1,\dots,N_E$}{
+      Draw $L_{i,1}$, $L_{i,2}$, $T_{i,t}$, $E_{i,k}$ from a conditional
+      multivariate normal.\;
+    }
+    \Indm
+    \textbf{2. Draw correlation matrix $\mat\Psi$, conditional on
+      $\mat L$.}\;
+    \textbf{3.  Draw scales, $G_{l}$, via Bayesian weighted linear regression}
+    \textbf{4. Draw technology level random variables:}\;
+    \Indp\ \For{$t\in 1,\dots,N_T$}{
+      Draw $\tau_{t}$ and normal
+      and Inv-$\chi^2$ draws.
+    }
+    \Indm
+    \textbf{5. Draw experiment level random variables:}\;
+    \Indp\ \For{$k\in 1,\dots,N_E$}{
+      Draw $\xi_{k}$ via normal and Inv-$\chi^2$ draws.
+    }
+    \Indm
+    \textbf{6. Draw replicate level random variables:}\;
+    \Indp\ \For{$j\in 1,\dots,N_R$}{
+      Draw $\nu_{j}$, $\theta_{j}$ using normal and Inv-$\chi^2$ draws.
+    }
+    \Indm
+    \textbf{7. Impute missing data, see text.}\;
+    \textbf{8. Draw observation model parameters:}\;
+    \Indp\ \For{$k\in 1,\dots,N_E$}{
+      Draw $\eta^1_k$ and $\eta^0_k$ via Bayesian logistic
+      regression and normal draws.
+    }
+    \Indm
+  }
+\end{algorithm}
+The draws are consistent with standard
+Bayesian linear regression or logistic (step 8) regression with
+conjugate variance draws (steps 4-6).  \cite[Sec.~14.2]{gelman03}. Step 1 is a
+simple multivariate normal draw, and the imputation in step 7 is
+done using a Metropolis-Hastings independence sampler. Step 2 is
+also a Metropolis-Hastings sampler using a random walk proposal, see
+\cite{barnard00} for the complete method.
+
+\subsubsection*{Sensitivity analysis}
+
+Our model belongs to a class of models extensively studied by
+\cite{Franks2014}, and in the following we summarize the properties and results from
+these models here.
+
+In simulation studies with data sets generated from the model, the model
+has good frequentist coverage properties, especially for
+the $\psi_{1,2}$ mRNA--protein correlation parameter.
+
+The model is robust to departures from normality, and the inferred
+correlation has a very small bias for data sets that are generated
+from skewed and/or heavy-tailed distributions.
+
+In our model we assume independent observations for different genes
+and proteins. Genes may have correlated fluctuations, for example if 
+cultures are grown in ways which systematically induce or repress
+particular pathways. Simulations show that even if a large number of genes are strongly
+correlated, the inferred correlations are only slightly biased.
+
+The logistic observation model is also robust to mis-specification.
+In particular, the inferred correlation shows no bias for
+data generated from a two-stage observation model,
+with an additional stage in which proteins are missing uniformly
+with a 0.2 probability. 
+
+The model is also
+minimal, in the sense that the major assumptions of correlated noise and
+non-ignorable missingness are required to recover the correct
+mRNA--protein correlation in simulation studies.
+
+\subsection*{Toy model}
+Below is R code to reproduce the toy model in Fig.~\ref{fig:toy}.
+% begin revision
+\begin{verbatim}
+	# Random number seed
+	set.seed(115)
+
+	# Number of genes
+	n <- 5854
+	# Exponent of empirical (evolved) relationship between steady-state
+	# mRNA levels and translation rates
+	gamma <- 0.56
+	# Scaling factor, 1/time
+	alpha <- 0.1
+	# Degradation rate, 1/time
+	delta <- 0.001
+	# Standard deviation of mean-zero variation added to log mRNA levels to yield
+	# unscaled log translation rates
+	te.variation <- 1.1
+	# Steady-state mRNA levels in molecules/cell (log-normal)
+	# Mean and variance are equal to those of the SCM mean estimates
+	log.m <- rnorm(n, mean=1.09, sd=1.25)
+	m <- exp(log.m)
+	# Translation rate -- add log-normal variation to, and scale, mRNA levels
+	tau <- alpha*exp(log.m + rnorm(n,mean=0,sd=te.variation))^gamma
+	# Steady-state protein levels in molecules/cell (log-normal)
+	prot.variation <- 0.55
+	p <- (tau/delta)*exp(log.m + rnorm(n, mean=0, sd=prot.variation))
+
+	# Plot protein vs. mRNA
+	plot(m, p, log='xy', pch=16, las=1, 
+		xlab='mRNA level (mol./cell)', ylab='Protein level (mol./cell)')
+	# Plot translation rate vs. mRNA
+	plot(m, tau, log='xy', pch=16, las=1,
+		xlab='mRNA level (mol./cell)', 
+		ylab='Translation rate per mRNA (proteins/sec)')
+\end{verbatim}
+
+% end revision
+
+% Do NOT remove this, even if you are not including acknowledgments
+\section*{Acknowledgments}
+We thank S. Nesterko for early work, N. Ingolia for providing data, and E.W.J. Wallace, K. Cook, and
+many other colleagues for thoughtful discussions.
+
+
+%\section*{References}
+% The bibtex filename
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{desousa09}
+de~Sousa~Abreu R, Penalva L, Marcotte E, Vogel C (2009) Global signatures of
+  protein and {mRNA} expression levels.
+\newblock Mol Biosyst 5: 1512--1526.
+\bibAnnoteFile{desousa09}
+
+\bibitem{Belle2006}
+Belle A, Tanay A, Bitincka L, Shamir R, O'Shea EK (2006) {Quantification of
+  protein half-lives in the budding yeast proteome}.
+\newblock Proc Natl Acad Sci U S A 103: 13004--13009.
+\bibAnnoteFile{Belle2006}
+
+\bibitem{schwanhausser11}
+Schwanhausser B, Busse D, Li N, Dittmar G, Schuchhardt J, et~al. (2011) Global
+  quantification of mammalian gene expression control.
+\newblock Nature 473: 337--342.
+\bibAnnoteFile{schwanhausser11}
+
+\bibitem{Beyer2004}
+Beyer A, Hollunder J, Nasheuer HP, Wilhelm T (2004) {Post-transcriptional
+  expression regulation in the yeast Saccharomyces cerevisiae on a genomic
+  scale.}
+\newblock Mol Cell Proteomics 3: 1083--1092.
+\bibAnnoteFile{Beyer2004}
+
+\bibitem{Yu2007}
+Yu EZ, Burba AEC, Gerstein M (2007) {PARE: a tool for comparing protein
+  abundance and mRNA expression data.}
+\newblock BMC bioinformatics 8: 309.
+\bibAnnoteFile{Yu2007}
+
+\bibitem{gygi99}
+Gygi S, Rochon Y, Franza B, Aebersold R (1999) Correlation between protein and
+  {mRNA} abundance in yeast.
+\newblock Mol Cell Biol 19: 1720--1730.
+\bibAnnoteFile{gygi99}
+
+\bibitem{maier09}
+Maier T, Guell M, Serrano L (2009) Correlation of {mRNA} and protein in complex
+  biological samples.
+\newblock FEBS Lett 583: 3966--3973.
+\bibAnnoteFile{maier09}
+
+\bibitem{siwiak10}
+Siwiak M, Zielenkiewicz P (2010) A comprehensive, quantitative, and genome-wide
+  model of translation.
+\newblock PLoS Comput Biol 6: e1000865.
+\bibAnnoteFile{siwiak10}
+
+\bibitem{vogel12}
+Vogel C, Marcotte E (2012) Insights into the regulation of protein abundance
+  from proteomic and transcriptomic analyses.
+\newblock Nat Rev Genet 13: 227--232.
+\bibAnnoteFile{vogel12}
+
+\bibitem{Nie2006a}
+Nie L, Wu G, Zhang W (2006) {Correlation between mRNA and protein abundance in
+  Desulfovibrio vulgaris: a multiple regression to identify sources of
+  variations.}
+\newblock Biochemical and biophysical research communications 339: 603--10.
+\bibAnnoteFile{Nie2006a}
+
+\bibitem{brockmann07}
+Brockmann R, Beyer A, Heinisch J, Wilhelm T (2007) Posttranscriptional
+  expression regulation: what determines translation rates?
+\newblock PLoS Comput Biol 3: e57.
+\bibAnnoteFile{brockmann07}
+
+\bibitem{Schmidt2007}
+Schmidt MW, Houseman A, Ivanov AR, Wolf DA (2007) {Comparative proteomic and
+  transcriptomic profiling of the fission yeast Schizosaccharomyces pombe.}
+\newblock Molecular systems biology 3: 79.
+\bibAnnoteFile{Schmidt2007}
+
+\bibitem{castrillo07}
+Castrillo J, Zeef L, Hoyle D, Zhang N, Hayes A, et~al. (2007) Growth control of
+  the eukaryote cell: a systems biology study in yeast.
+\newblock J Biol 6: 4.
+\bibAnnoteFile{castrillo07}
+
+\bibitem{Wu2008}
+Wu G, Nie L, Zhang W (2008) {Integrative analyses of posttranscriptional
+  regulation in the yeast Saccharomyces cerevisiae using transcriptomic and
+  proteomic data.}
+\newblock Current microbiology 57: 18--22.
+\bibAnnoteFile{Wu2008}
+
+\bibitem{Vogel2010}
+Vogel C, {Abreu Rde} S, Ko D, Le SY, Shapiro BA, et~al. (2010) {Sequence
+  signatures and mRNA concentration can explain two-thirds of protein abundance
+  variation in a human cell line}.
+\newblock Mol Syst Biol 6: 400.
+\bibAnnoteFile{Vogel2010}
+
+\bibitem{wang12}
+Wang M, Weiss M, Simonovic M, Haertinger G, Schrimpf S, et~al. (2012) Paxdb, a
+  database of protein abundance averages across all three domains of life.
+\newblock Molecular \& Cellular Proteomics 11: 492--500.
+\bibAnnoteFile{wang12}
+
+\bibitem{lu07}
+Lu P, Vogel C, Wang R, Yao X, Marcotte E (2007) Absolute protein expression
+  profiling estimates the relative contributions of transcriptional and
+  translational regulation.
+\newblock Nat Biotechnol 25: 117--124.
+\bibAnnoteFile{lu07}
+
+\bibitem{ingolia09}
+Ingolia N, Ghaemmaghami S, Newman J, Weissman J (2009) Genome-wide analysis in
+  vivo of translation with nucleotide resolution using ribosome profiling.
+\newblock Science 324: 218--223.
+\bibAnnoteFile{ingolia09}
+
+\bibitem{greenbaum03}
+Greenbaum D, Colangelo C, Williams K, Gerstein M (2003) Comparing protein
+  abundance and {mRNA} expression levels on a genomic scale.
+\newblock Genome Biol 4: 117.
+\bibAnnoteFile{greenbaum03}
+
+\bibitem{futcher99}
+Futcher B, Latter G, Monardo P, McLaughlin C, Garrels J (1999) A sampling of
+  the yeast proteome.
+\newblock Mol Cell Biol 19: 7357--7368.
+\bibAnnoteFile{futcher99}
+
+\bibitem{li14}
+Li J, Bickel P, Biggin M (2014) System wide analyses have underestimated
+  protein abundances and the importance of transcription in mammals.
+\newblock PeerJ 2: e270.
+\bibAnnoteFile{li14}
+
+\bibitem{leek10}
+Leek J, Scharpf R, Bravo H, Simcha D, Langmead B, et~al. (2010) Tackling the
+  widespread and critical impact of batch effects in highthroughput data.
+\newblock Nat Rev Genet 11: 733--739.
+\bibAnnoteFile{leek10}
+
+\bibitem{Li2015}
+Li JJ, Biggin MD (2015) {Statistics requantitates the central dogma}.
+\newblock Science 347: 1066--1067.
+\bibAnnoteFile{Li2015}
+
+\bibitem{spearman04}
+Spearman C (1904) The proof and measurement of association between two things.
+\newblock Am J Psychol 15: 72--101.
+\bibAnnoteFile{spearman04}
+
+\bibitem{Pearson1903}
+Pearson K (1903) {I. Mathematical Contributions to the Theory of
+  Evolution.—XI On the Influence of Natural Selection on the Variability and
+  Correlation of Organs}.
+\newblock Philosophical Transactions of the Royal Society of London Series A
+  200: 1--66.
+\bibAnnoteFile{Pearson1903}
+
+\bibitem{Alexander1985}
+Alexander RA, Hanges PJ, Alliger GM (1985) {Correcting for Restriction of Range
+  in Both X and Y When the Unrestricted Variances are Unknown}.
+\newblock Applied Psychological Measurement 9: 317--323.
+\bibAnnoteFile{Alexander1985}
+
+\bibitem{Franks2014}
+Franks AM, Cs{\'a}rdi G, Drummond DA, Airoldi EM (2014) Estimating a structured
+  covariance matrix from multi-lab measurements in high-throughput biology.
+\newblock Journal of the American Statistical Association : 00--00.
+\bibAnnoteFile{Franks2014}
+
+\bibitem{plotkin10}
+Plotkin J (2010) Transcriptional regulation is only half the story.
+\newblock Mol Syst Biol 6: 406.
+\bibAnnoteFile{plotkin10}
+
+\bibitem{Jovanovic2015}
+Jovanovic M, Rooney M, Mertins P, Przybylski D, Chevrier N, et~al. (2015)
+  {Dynamic profiling of the protein life cycle in response to pathogens}.
+\newblock Science 347: 1259038--.
+\bibAnnoteFile{Jovanovic2015}
+
+\bibitem{ghaemmaghami03}
+Ghaemmaghami S, Huh W, Bower K, Howson R, Belle A, et~al. (2003) Global
+  analysis of protein expression in yeast.
+\newblock Nature 425: 737--741.
+\bibAnnoteFile{ghaemmaghami03}
+
+\bibitem{hutcheon10}
+Hutcheon J, Chiolero A, Hanley J (2010) Random measurement error and regression
+  dilution bias.
+\newblock BMJ 340: c2289.
+\bibAnnoteFile{hutcheon10}
+
+\bibitem{Weisberg2005}
+Weisberg S (2005) {Applied Linear Regression}.
+\newblock Hoboken, NJ: John Wiley \& Sons, Inc., third edit edition.
+\newblock \doi{10.1002/0471704091}.
+\newblock
+  \urlprefix\url{http://onlinelibrary.wiley.com/book/10.1002/0471704091}.
+\bibAnnoteFile{Weisberg2005}
+
+\bibitem{legendre98}
+Legendre P, Legendre L, Legendre L, Legendre L (1998) Numerical ecology.
+\newblock Amsterdam, New York: Elsevier, 2nd {E}nglish edition.
+\bibAnnoteFile{legendre98}
+
+\bibitem{sokal95}
+Sokal R, Rohlf F (1995) Biometry.
+\newblock New York: W. H. Freeman and Co., 3rd edition.
+\bibAnnoteFile{sokal95}
+
+\bibitem{velculescu97}
+Velculescu V, Zhang L, Zhou W, Vogelstein J, Basrai M, et~al. (1997)
+  Characterization of the yeast transcriptome.
+\newblock Cell 88: 243--251.
+\bibAnnoteFile{velculescu97}
+
+\bibitem{holstege98}
+Holstege F, Jennings E, Wyrick J, Lee T, Hengartner C, et~al. (1998) Dissecting
+  the regulatory circuitry of a eukaryotic genome.
+\newblock Cell 95: 717--728.
+\bibAnnoteFile{holstege98}
+
+\bibitem{nagalakshmi08}
+Nagalakshmi U, Wang Z, Waern K, Shou C, Raha D, et~al. (2008) The
+  transcriptional landscape of the yeast genome defined by {RNA} sequencing.
+\newblock Science 320: 1344--1349.
+\bibAnnoteFile{nagalakshmi08}
+
+\bibitem{lipson09}
+Lipson D, Raz T, Kieu A, Jones D, Giladi E, et~al. (2009) Quantification of the
+  yeast transcriptome by single-molecule sequencing.
+\newblock Nat Biotechnol 27: 652--658.
+\bibAnnoteFile{lipson09}
+
+\bibitem{newman06}
+Newman J, Ghaemmaghami S, Ihmels J, Breslow D, Noble M, et~al. (2006)
+  Single-cell proteomic analysis of {S.} cerevisiae reveals the architecture of
+  biological noise.
+\newblock Nature 441: 840--846.
+\bibAnnoteFile{newman06}
+
+\bibitem{degodoy08}
+de~Godoy L, Olsen J, Cox J, Nielsen M, Hubner N, et~al. (2008) Comprehensive
+  mass-spectrometry-based proteome quantification of haploid versus diploid
+  yeast.
+\newblock Nature 455: 1251--1254.
+\bibAnnoteFile{degodoy08}
+
+\bibitem{lee11}
+Lee M, Topper S, Hubler S, Hose J, Wenger C, et~al. (2011) A dynamic model of
+  proteome changes reveals new roles for transcript alteration in yeast.
+\newblock Mol Syst Biol 7: 514.
+\bibAnnoteFile{lee11}
+
+\bibitem{cherry12}
+Cherry J, Hong E, Amundsen C, Balakrishnan R, Binkley G, et~al. (2012)
+  Saccharomyces genome database: the genomics resource of budding yeast.
+\newblock Nucleic Acids Res 40: D700--705.
+\bibAnnoteFile{cherry12}
+
+\bibitem{yassour09}
+Yassour M, Kaplan T, Fraser H, Levin J, Pfiffner J, et~al. (2009) Ab initio
+  construction of a eukaryotic transcriptome by massively parallel {mRNA}
+  sequencing.
+\newblock Proc Natl Acad Sci USA 106: 3264--3269.
+\bibAnnoteFile{yassour09}
+
+\bibitem{marioni08}
+Marioni J, Mason C, Mane S, Stephens M, Gilad Y (2008) Rna-seq: An assessment
+  of technical reproducibility and comparison with gene expression arrays.
+\newblock Genome Research 18: 1509--1517.
+\bibAnnoteFile{marioni08}
+
+\bibitem{archer08}
+Archer K, Dumur C, Taylor G, Chaplin M, Guiseppi-Elie, et~al. (2008) A
+  disattenuated correlation estimate when variables are measured with error:
+  illustration estimating cross-platform correlations.
+\newblock Stat med 27: 1026--1039.
+\bibAnnoteFile{archer08}
+
+\bibitem{schmidt99}
+Schmidt F, Hunter J (1999) Theory testing and measurement error.
+\newblock Intelligence 27: 183198.
+\bibAnnoteFile{schmidt99}
+
+\bibitem{muchinsky96}
+Muchinsky P (1996) The correction for attenuation.
+\newblock Educational and psychological measurement 56: 63--75.
+\bibAnnoteFile{muchinsky96}
+
+\bibitem{zimmerman97}
+Zimmerman D, Williams R (1997) Properties of the spearman correction for
+  attenuation for normal and realistic non-normal distributions.
+\newblock Applied Psychological Measurement 21: 253270.
+\bibAnnoteFile{zimmerman97}
+
+\bibitem{Drummond2005}
+Drummond DA, Bloom JD, Adami C, Wilke CO, Arnold FH (2005) {Why highly
+  expressed proteins evolve slowly}.
+\newblock Proc Natl Acad Sci USA 102: 14338--14343.
+\bibAnnoteFile{Drummond2005}
+
+\bibitem{adolph07}
+Adolph S, Hardin J (2007) Estimating phenotypic correlations: correcting for
+  bias due to intraindividual variability.
+\newblock Functional Ecology 21: 178--184.
+\bibAnnoteFile{adolph07}
+
+\bibitem{archer07}
+Archer K, Dumur C, Taylor G, Chaplin M, Guiseppi-Elie A, et~al. (2007)
+  Application of a correlation correction factor in a microarray crossplatform
+  reproducibility study.
+\newblock BMC Bioinformatics 8: 447.
+\bibAnnoteFile{archer07}
+
+\bibitem{behseta09}
+Behseta S, Berdyyeva T, Olson C, Kass R (2009) Bayesian correction for
+  attenuation of correlation in multi-trial spike count data.
+\newblock J neurophysiol 101: 2186--2193.
+\bibAnnoteFile{behseta09}
+
+\bibitem{zenklusen08}
+Zenklusen D, Larson D, Singer R (2008) Single-{RNA} counting reveals
+  alternative modes of gene expression in yeast.
+\newblock Nat Struct Mol Biol 15: 1263--1271.
+\bibAnnoteFile{zenklusen08}
+
+\bibitem{miura08}
+Miura F, Kawaguchi N, Yoshida M, Uematsu C, Kito K, et~al. (2008) Absolute
+  quantification of the budding yeast transcriptome by means of competitive
+  {PCR} between genomic and complementary {DNAs}.
+\newblock BMC Genomics 9: 574.
+\bibAnnoteFile{miura08}
+
+\bibitem{Johnston1977}
+Johnston GC, Pringle JR, Hartwell LH (1977) {Coordination of growth with cell
+  division in the yeast Saccharomyces cerevisiae.}
+\newblock Experimental cell research 105: 79--98.
+\bibAnnoteFile{Johnston1977}
+
+\bibitem{vonderhaar02}
+von~der Haar T, McCarthy J (2002) Intracellular translation initiation factor
+  levels in {S}accharomyces cerevisiae and their role in cap-complex function.
+\newblock Mol Microbiol 46: 531--544.
+\bibAnnoteFile{vonderhaar02}
+
+\bibitem{picotti09}
+Picotti P, Bodenmiller B, Mueller L, Domon B, Aebersold R (2009) Full dynamic
+  range proteome analysis of {S.} cerevisiae by targeted proteomics.
+\newblock Cell 138: 795--806.
+\bibAnnoteFile{picotti09}
+
+\bibitem{gerashchenko12}
+Gerashchenko M, Lobanov A, Gladyshev V (2012) Genome-wide ribosome profiling
+  reveals complex translational regulation in response to oxidative stress.
+\newblock Proc Natl Acad Sci USA 109: 17394--17399.
+\bibAnnoteFile{gerashchenko12}
+
+\bibitem{Gerashchenko2014}
+Gerashchenko MV, Gladyshev VN (2014) {Translation inhibitors cause
+  abnormalities in ribosome profiling experiments.}
+\newblock Nucleic acids research 42: e134.
+\bibAnnoteFile{Gerashchenko2014}
+
+\bibitem{McManus2014}
+McManus CJ, May GE, Spealman P, Shteyman A (2014) {Ribosome profiling reveals
+  post-transcriptional buffering of divergent gene expression in yeast.}
+\newblock Genome research 24: 422--30.
+\bibAnnoteFile{McManus2014}
+
+\bibitem{Subtelny2014}
+Subtelny AO, Eichhorn SW, Chen GR, Sive H, Bartel DP (2014) {Poly(A)-tail
+  profiling reveals an embryonic switch in translational control.}
+\newblock Nature 508: 66--71.
+\bibAnnoteFile{Subtelny2014}
+
+\bibitem{Ahrne2013}
+Ahrn\'{e} E, Molzahn L, Glatter T, Schmidt A (2013) {Critical assessment of
+  proteome-wide label-free absolute abundance estimation strategies.}
+\newblock Proteomics 13: 2567--78.
+\bibAnnoteFile{Ahrne2013}
+
+\bibitem{Warner1999}
+Warner JR (1999) {The economics of ribosome biosynthesis in yeast}.
+\newblock Trends Biochem Sci 24: 437--440.
+\bibAnnoteFile{Warner1999}
+
+\bibitem{marguerat12}
+Marguerat S, Schmidt A, Codlin S, Chen W, Aebersold R, et~al. ({2012})
+  Quantitative analysis of fission yeast transcriptomes and proteomes in
+  proliferating and quiescent cells.
+\newblock {CELL} {151}: {671-683}.
+\bibAnnoteFile{marguerat12}
+
+\bibitem{Akashi2003}
+Akashi H (2003) {Translational selection and yeast proteome evolution}.
+\newblock Genetics 164: 1291--1303.
+\bibAnnoteFile{Akashi2003}
+
+\bibitem{Wallace2013}
+Wallace EW, Airoldi EM, Drummond DA (2013) {Estimating selection on synonymous
+  codon usage from noisy experimental data}.
+\newblock Mol Biol Evol 30: 1438--1453.
+\bibAnnoteFile{Wallace2013}
+
+\bibitem{gu10}
+Gu W, Zhou T, Wilke C (2010) A universal trend of reduced mrna stability near
+  the translation-initiation site in prokaryotes and eukaryotes.
+\newblock PLoS Computational Biology 6: e1000664.
+\bibAnnoteFile{gu10}
+
+\bibitem{Goodman2013}
+Goodman DB, Church GM, Kosuri S (2013) {Causes and effects of N-terminal codon
+  bias in bacterial genes}.
+\newblock Science 342: 475--479.
+\bibAnnoteFile{Goodman2013}
+
+\bibitem{Kudla2009}
+Kudla G, Murray AW, Tollervey D, Plotkin JB (2009) {Coding-sequence
+  determinants of gene expression in Escherichia coli}.
+\newblock Science 324: 255--258.
+\bibAnnoteFile{Kudla2009}
+
+\bibitem{Frank1978}
+Frank KR, Mills D (1978) {Ribosome activity and degradation in meiotic cells of
+  Saccharomyces cerevisiae.}
+\newblock Molecular \& General Genetics 160: 59--65.
+\bibAnnoteFile{Frank1978}
+
+\bibitem{rcore14}
+{R Core Team} (2014) R: A Language and Environment for Statistical Computing.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+\newblock \urlprefix\url{http://www.R-project.org/}.
+\bibAnnoteFile{rcore14}
+
+\bibitem{gelman08}
+Gelman A, Jakulin A, Pittau M, Su Y (2008) A weakly informative default prior
+  distribution for logistic and other regression models.
+\newblock Annals of Applied Statistics 2: 1360--1383.
+\bibAnnoteFile{gelman08}
+
+\bibitem{barnard00}
+Barnard J, McCulloch R, Meng X (2000) Modeling covariance matrices in terms of
+  standard deviations and correlations, with application to shrinkage.
+\newblock Statistica Sinica 10: 1281--1311.
+\bibAnnoteFile{barnard00}
+
+\bibitem{gelman03}
+Gelman A, Carlin J, Stern H, Rubin D (2003) Bayesian data analysis.
+\newblock Chapman and Hall/CRC, 2 edition.
+\bibAnnoteFile{gelman03}
+
+\bibitem{peng03}
+Peng J, Elias J, Thoreen C, Licklider L, Gygi S (2003) Evaluation of
+  multidimensional chromatography coupled with tandem mass spectrometry
+  {(LC/LC-MS/MS)} for large-scale protein analysis: the yeast proteome.
+\newblock J Proteome Res 2: 43--50.
+\bibAnnoteFile{peng03}
+
+\bibitem{causton01}
+Causton H, Ren B, Koh S, Harbison C, Kanin E, et~al. (2001) Remodeling of yeast
+  genome expression in response to environmental changes.
+\newblock Mol Biol Cell 12: 323--337.
+\bibAnnoteFile{causton01}
+
+\bibitem{dudley02}
+Dudley A, Aach J, Steffen M, Church G (2002) Measuring absolute expression with
+  microarrays with a calibrated reference sample and an extended signal
+  intensity range.
+\newblock Proc Natl Acad Sci USA 99: 7554--7559.
+\bibAnnoteFile{dudley02}
+
+\bibitem{garciamartinez04}
+Garcia-Martinez J, Aranda A, Perez-Ortin J (2004) Genomic run-on evaluates
+  transcription rates for all yeast genes and identifies gene regulatory
+  mechanisms.
+\newblock Mol Cell 15: 303--313.
+\bibAnnoteFile{garciamartinez04}
+
+\bibitem{Ingolia2010}
+Ingolia NT (2010) {Genome-wide translational profiling by ribosome
+  footprinting}.
+\newblock Methods Enzymol 470: 119--142.
+\bibAnnoteFile{Ingolia2010}
+
+\bibitem{mackay04}
+MacKay V, Li X, Flory M, Turcott E, Law G, et~al. (2004) Gene expression
+  analyzed by high-resolution state array analysis and quantitative proteomics:
+  response of yeast to mating pheromone.
+\newblock Mol Cell Proteomics 3: 478--489.
+\bibAnnoteFile{mackay04}
+
+\bibitem{pelechano10}
+Pelechano V, P\'erez-Ort\'{\i}n J (2010) There is a steady-state transcriptome
+  in exponentially growing yeast cells.
+\newblock Yeast 27: 413--422.
+\bibAnnoteFile{pelechano10}
+
+\bibitem{roth98}
+Roth F, Hughes J, Estep P, Church G (1998) Finding {DNA} regulatory motifs
+  within unaligned noncoding sequences clustered by whole-genome {mRNA}
+  quantitation.
+\newblock Nat Biotechnol 16: 939--945.
+\bibAnnoteFile{roth98}
+
+\bibitem{nagaraj12}
+Nagaraj N, Kulak N, Cox J, Neuhauser N, Mayr K, et~al. (2012) System-wide
+  perturbation analysis with nearly complete coverage of the yeast proteome by
+  single-shot ultra {HPLC} runs on a bench top {O}rbitrap.
+\newblock Mol Cell Proteomics 11: M111.013722.
+\bibAnnoteFile{nagaraj12}
+
+\bibitem{thakur11}
+Thakur S, Geiger T, Chatterjee B, Bandilla P, Frohlich F, et~al. (2011) Deep
+  and highly sensitive proteome coverage by {LC-MS/MS} without
+  prefractionation.
+\newblock Mol Cell Proteomics 10: M110.003699.
+\bibAnnoteFile{thakur11}
+
+\bibitem{washburn01}
+Washburn M, Wolters D, Yates~3rd J (2001) Large-scale analysis of the yeast
+  proteome by multidimensional protein identification technology.
+\newblock Nat Biotechnol 19: 242--247.
+\bibAnnoteFile{washburn01}
+
+\end{thebibliography}
+
+\ifbool{INCLUDEFIGURES} {
+	\section*{Figures}
+}{
+	\section*{Figure Legends}
+}
+
+
+\ifbool{INCLUDEFIGURES} {\begin{figure}[!ht]\centering\includegraphics[width=0.7\textwidth]{fig-correlations-overview}}
+{\begin{nofigure}}
+\caption{Measurements of steady-state mRNA and protein levels in budding yeast reveal wide variation in reproducibility and coverage. 
+  \textbf{A}, Steady-state protein levels reflect the balance of mRNA translation and protein removal. 
+  \textbf{B}, Raw correlations between measurements of mRNA and protein arranged by study (denoted by the first author) with the quantification method indicated.
+  \textbf{C}, Measurements vary widely in reproducibility and coverage. Each point represents a pair of
+  studies. Dots show between-study correlations (median shown by dashed
+  line), a measure of reliability. Dotted line, median of within-study correlations. Blue dots show pairs of studies from the same research group. 
+  {\bf D}, Correlations between studies sharing the same quantification method or different methods (dark and light gray bars, respectively), using mRNA datasets with \(\ge 5000\) genes (4,595 genes quantified by all datasets). For example, the second column from the left shows the 18 correlations between each of three commercial microarray studies and six studies using custom microarrays or RNA-Seq.
+  \label{fig:correlation-overview}
+}
+\ifbool{INCLUDEFIGURES}{\end{figure}}
+{\end{nofigure}}
+%\end{figure}
+
+\ifbool{INCLUDEFIGURES} {\begin{figure}[!ht]\centering\includegraphics[width=0.9\textwidth]{fig-mrna-protein-correlation}}
+{\begin{nofigure}}
+\caption{Correlations between mRNA and protein levels vary widely and are systematically reduced by experimental noise. 
+  \textbf{A}, Datasets vary widely in coverage of 5,887 yeast coding sequences and
+  in resulting estimates of the mRNA--protein correlation. Shown are all pairwise correlations between 14
+  mRNA and 11 protein datasets, with within-study replicates averaged
+  if present. Correlations are shown between mRNA and protein levels
+  reported without correction (dots); using Spearman's correction on
+  pairs of datasets (binned, boxes show mean and bars indicate
+  standard deviation); using Spearman's correction on the largest set
+  of paired measurements (red box); and as estimated by structured
+  covariance modeling for 5,854 genes with a detected mRNA or protein
+  (red diamond). 
+  \textbf{B}, Correlations obtained for the largest set of paired measurements, two of mRNA and two of protein levels ($N$=3,418), computed individually, after averaging, and after correcting for noise using Spearman's correction.
+  \textbf{C}, Data are missing non-randomly. The distribution of protein levels, in molecules per cell, detected by western blotting \cite{ghaemmaghami03} are shown, along with the subsets of these data corresponding to proteins detected by GFP-tagging and flow cytometry \cite{newman06}, LC MS/MS \cite{peng03}, and 2D gel \cite{gygi99}.
+  \textbf{D}, Distribution of protein-level measurements, assessed by western blotting \cite{ghaemmaghami03}, with at least one protein-level measurement (dark gray, number of genes $N_1$=3840) and in the subset of genes with at least 8 mRNA and 8 protein measurements (light gray, number of genes $N_8$=549).
+  \textbf{E}, mRNA--protein correlations between averaged mRNA and protein levels over subsets of at most 1, 2, 3, \dots, 8 measurements each of mRNA and protein levels drawn at random from the $N_8$ set. Error bars show the standard deviation of correlations from 50 random samples of the indicated number of measurements.
+\label{fig:mrna-prot-correlation}
+}
+\ifbool{INCLUDEFIGURES}{\end{figure}}
+{\end{nofigure}}
+
+
+\ifbool{INCLUDEFIGURES} {\begin{figure}[!ht]\centering\includegraphics[width=\textwidth]{fig-spearman-vs-scm-sim}}
+{\begin{nofigure}}
+\caption{Correlation estimates show widely varying performance on simulated data. ($N$=5000 ``genes'') against the known true correlations used to generate the data (dotted line). 50 replicates were performed at each parameter value. 
+\textbf{A}, Varying true correlation from 0.1 to 1.0 with a fixed reliability (ratio of true to total variance) of 0.7. 
+\textbf{B}, Varying reliability from 0.1 to 1.0 with a fixed true correlation of 0.9. 
+\textbf{C}, Varying the number of genes with detected gene products from 100 (2\%) to 5000 (100\%) with a fixed reliability of 0.7 and fixed correlation of 0.9, with gene data missing at random. 
+\textbf{D}, As in \textbf{C}, but with gene data missing non-randomly according to the sigmoidal model described in \textit{Methods}, such that low-expression gene products are less likely to be detected.}
+\label{fig:spearman-sim}
+\ifbool{INCLUDEFIGURES}{\end{figure}}
+{\end{nofigure}}
+
+
+
+\ifbool{INCLUDEFIGURES} {\begin{figure}[!ht]\centering\includegraphics[width=0.6\textwidth]{fig-nmar-modeling}}
+{\begin{nofigure}}
+\caption{Imputation of non-randomly missing data.
+The probability of gene or protein detection is modeled in the SCM as an increasing, step-like (logistic) function of the mRNA or protein level (see Methods). Lower panel shows the inferred probability of detection as a function of the measurement value for a single mRNA dataset \cite{causton01}; top shows the distribution of detected, missing (imputed), and all genes.
+  \label{fig:nmar-modeling}
+}
+\ifbool{INCLUDEFIGURES}{\end{figure}}
+{\end{nofigure}}
+
+\ifbool{INCLUDEFIGURES} {\begin{figure}[!ht]\centering\includegraphics[width=0.8\textwidth]{fig-scm-vs-absolute}}
+{\begin{nofigure}}
+\caption{Integrated estimates of mRNA and protein levels using a 
+structured covariance model (SCM). 
+{\bf A}, Integrated estimates of mean steady-state protein and mRNA levels
+across 58 global measurements reveal a strong genome-wide dependence
+between  ($r=0.93$). Estimates are produced for any gene with a detected mRNA (gray marginal densities), and other densities characterize subsets by mRNA and protein detection.
+{\bf B}, A single sample from the SCM estimates provides a representative view of mRNA and protein levels. Colors and marginal densities are the same as in \textbf{A}.
+{\bf C}, Absolute mRNA level estimates versus
+single-molecule fluorescence \textit{in situ} hybridization counts
+\cite{zenklusen08}. 
+{\bf D}, Absolute protein level estimates versus
+stable-isotope-standardized single reaction monitoring measurements
+\cite{picotti09}. Dotted lines in {\bf B} and {\bf C} show perfect
+agreement. 
+{\bf E}, Evidence for active translation of undetected
+proteins inferred from ribosome profiling. Dashed line
+shows ranged major-axis regression best fit. Marginal densities show
+ribosome density (median across five studies, see Methods) for all detected mRNAs (light gray), all
+mRNAs with a detected mRNA and protein (dark gray), and transcripts
+with no detected protein (blue).
+\label{fig:scm-vs-absolute}
+}
+\ifbool{INCLUDEFIGURES}{\end{figure}}
+{\end{nofigure}}
+
+
+\ifbool{INCLUDEFIGURES} {\begin{figure}[!ht]\centering\includegraphics[width=0.9\textwidth]{fig-exponent-final}}
+{\begin{nofigure}}
+\caption{Transcriptional and translational regulation act coherently
+  to set protein levels. 
+  {\bf A}, Left, the correlation of mRNA (orange) and
+  ribosome footprint density (green) with protein levels \cite{degodoy08} as originally reported \cite{ingolia09}. Results of four subsequent ribosome footprint density datasets (gray) from other groups are shown for comparison. Right, the same correlations employing SCM-estimated protein levels. The SCM mRNA--protein correlation is shown for comparison (blue). All bars show Pearson correlations between log-transformed values.
+  {\bf B}, The exponent relating protein and mRNA levels, or equivalently the slope relating log-transformed values,
+  estimated by noise-blind (ordinary least-squares, OLS) and noise-aware
+  (ranged major-axis, RMA) regression analyses. Gray points, all pairs of
+  datasets; black points, pairs of datasets covering at least half the detected transcriptome ($>2927$ genes). Dotted line shows perfect agreement; dashed line marks integrated SCM estimate (1.69).
+  {\bf C}, Cumulative distributions of slopes computed by OLS and RMA regression (solid lines), with medians indicated by dotted lines and the SCM slope estimate indicated by a dashed line, cf. S2 Fig.
+  {\bf D}, Relative translational activity (TA) measured by ribosome density (normalized, median over five datasets, $N=4435$)  correlates strongly and nonlinearly with mRNA level (SCM estimate). Dotted gray line shows linear (slope = 1) fit. Solid gray line shows RMA regression fit (slope = 1.68).
+  {\bf E}, Relative translational efficiency (TE) (ribosome density divided by mRNA level) increases with SCM mRNA level (Spearman $r=0.65$).
+  {\bf F},  RMA-estimated slopes for translational activity (ribosome density) and protein level versus SCM-estimated mRNA level (left) and recent RNA-seq mRNA level (right). Dashed line shows SCM estimate of protein vs.~mRNA slope.
+  {\bf G}, Distributions of per-gene steady-state levels of mRNAs (blue; SCM estimates [solid] and independent recent RNA-seq estimates [dotted]), ribosomes on steady-state mRNAs (dotted yellow), and proteins (magenta).
+	\label{fig:exponent-final}}
+\ifbool{INCLUDEFIGURES}{\end{figure}}
+{\end{nofigure}}
+
+\ifbool{INCLUDEFIGURES} {\begin{figure}[!ht]\centering\includegraphics[width=0.8\textwidth]{fig-toy-model}}
+{\begin{nofigure}}
+\caption{A simplified model captures major features of the steady-state mRNA--protein relationship. 
+\textbf{A}, mRNA and protein levels estimated by the structured covariance model (cf. Fig~\ref{fig:scm-vs-absolute}B). Dotted line shows a linear relationship.
+\textbf{B}, mRNA and protein levels generated according to a toy model (see text and Methods). Dotted line shows a linear relationship.
+\textbf{C}, Normalized translational efficiency (ribosome density per mRNA) compared to steady-state mRNA levels.
+\textbf{D}, Translation rate per mRNA versus mRNA level in the toy model.
+\label{fig:toy}}
+\ifbool{INCLUDEFIGURES}{\end{figure}}
+{\end{nofigure}}
+
+
+%%\begin{figure}[!ht]
+%\begin{center}
+%%\includegraphics[width=4in]{figure_name.2.eps}
+%\end{center}
+%\caption{
+%{\bf Bold the first sentence.}  Rest of figure 2  caption.  Caption 
+%should be left justified, as specified by the options to the caption 
+%package.
+%}
+%\label{Figure_label}
+%%\end{figure}
+
+\newpage
+\section*{Tables}
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+Study identifier [reference]                    & Technology (replicates)   & \% missing\\
+\hline
+\textsc{causton} \cite{causton01}       & Commercial microarray (5) & 19--22 \\
+\textsc{dudley}  \cite{dudley02}        & Custom microarray (4)     & 5      \\
+\textsc{garcia} \cite{garciamartinez04} & Custom microarray (1$^a$)     & 1      \\
+\textsc{holstege} \cite{holstege98}     & Commercial microarray (1) & 12     \\
+\textsc{ingolia} \cite{ingolia09,Ingolia2010}       & RNA-Seq (6)               & 4--10  \\
+\textsc{lipson} \cite{lipson09}         & RNA-Seq (6)               & 1      \\
+\textsc{lipson}.MA \cite{lipson09}      & Commercial microarray (1) & 4      \\
+\textsc{mackay} \cite{mackay04}         & Custom microarray (1)     & 28     \\
+\textsc{miura} \cite{miura08}           & Competitive PCR (4)       & 26--29 \\
+\textsc{nagalakshmi} \cite{nagalakshmi08} & RNA-Seq (1)             & 22     \\
+\textsc{pelechano} \cite{pelechano10}   & Custom microarray (1)     & 14     \\
+\textsc{roth} \cite{roth98}             & Commercial microarray (2) & 59--70 \\
+\textsc{velculescu} \cite{velculescu97} & SAGE (1)                  & 58     \\
+\textsc{yassour} \cite{yassour09}       & RNA-Seq (4)               & 5      \\
+\hline
+\textsc{futcher} \cite{futcher99}       & 2D gel (1)                & 99     \\
+\textsc{ghaemmaghami} \cite{ghaemmaghami03} & Western blot (1)      & 34     \\
+\textsc{degodoy} \cite{degodoy08}       & LC MS/MS (1)              & 25     \\
+\textsc{gygi} \cite{gygi99}             & 2D gel (1)                & 98     \\
+\textsc{lee} \cite{lee11}               & LC MS/MS (3)              & 67--76 \\
+\textsc{lu} \cite{lu07}                 & LC MS/MS (1)              & 83     \\
+\textsc{nagaraj} \cite{nagaraj12}       & LC MS/MS (6)              & 31     \\
+\textsc{newman} \cite{newman06}         & GFP/flow cytometry (1)    & 60     \\
+\textsc{peng} \cite{peng03}             & LC MS/MS (1)              & 74     \\
+\textsc{thakur} \cite{thakur11}         & LC MS/MS (3)              & 84--85 \\
+\textsc{washburn} \cite{washburn01}     & LC MS/MS (1)              & 77     \\
+\hline
+\end{tabular}
+\caption{Measurements of mRNA (above the midline) and protein
+(below the midline) analyzed using structured covariance modeling. $^a$Average of three replicates.\label{tab:data}} 
+
+\end{table}
+
+
+\section*{Supporting Information}
+\subsection*{S1 Fig}
+\label{S1_Fig}
+{\bf Use of the nonparametric Spearman rank correlation yields similar results to use of the Pearson correlation on log-transformed values.}  The results of Spearman's correction on the largest set of paired datasets (red square) and structured covariance model (SCM) fitting (red diamond) are provided for reference. Labels as in Fig~2A.
+
+\subsection*{S2 Fig}
+\label{S2_Fig}
+{\bf Three methods for slope estimation in the presence of noise yield substantially higher estimates than ordinary least-squares (OLS) regression.} Shown are the results of major-axis (MA), scaled major-axis (SMA), and ranged major-axis (RMA) regression of protein levels on log mRNA levels, all values log-transformed but otherwise raw, with slopes extracted and shown as cumulative distributions. The SCM fit value is provided for reference (black dashed line).
+
+\subsection*{S2 Fig}
+\label{S3_Fig}
+{\bf Large datasets show dynamic-range differences in protein and mRNA levels.} Relative dynamic ranges of large mRNA (top, gray) and protein (bottom, black) datasets. Raw data were log-transformed and the subset of genes covered by all studies were isolated (3,049 genes); the widths of the central 95\% quantile of the data from each study was then calculated. To ease comparisons to results in the main text, all widths were scaled by that of the narrowest dataset.
+
+\subsection*{S4 Fig}
+\label{S4_Fig}
+{\bf Comparison between SCM and recent RNA-seq mRNA levels reveals deviations primarily at the extremes.} Left, scatterplot of recent RNA-seq data
+normalized to match the SCM molecules-per-cell median, against SCM estimates of mRNA levels. Dotted line shows slope of 1, solid line shows RMA slope (1.27). Right, cumulative distribution of the same data. Distributions are indistinguishable by Kolmogorov-Smirnov and Mann-Whitney U tests ($P>0.1$ for both).
+
+\end{document}
+

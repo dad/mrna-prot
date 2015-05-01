@@ -1,0 +1,22 @@
+# Protein level files
+alias	desc	ms	year	ms.desc	group	orfname	valname	log	strategy	fname	reference	strain background	genotype	growth temperature (C)	medium	density	platform/technique	group.desc	notes	norm.by.length
+gygi	Gygi 1999	gygi	1999	Gygi 1999	aebersold	orf	abund	NA	2D gel	gygi99-abundance.txt										FALSE
+futcher	Futcher 1999	futcher	1999	Futcher 1999	futcher	orf	twod.gel.glu	NA	2D gel	futcher99-proteome.txt										FALSE
+washburn	Washburn 2001	washburn	2001	Washburn 2001	yates	orf	abund	NA	LC MS/MS	washburn01-abundance.txt										TRUE
+peng	Peng 2003	peng	2003	Peng 2003	gygi	orf	abund	NA	LC MS/MS	peng03-proteome.txt										TRUE
+ghaem	Ghaemmaghami 2003	ghaem	2003	Ghaemmaghami 2003	weissman/o'shea	orf	abund	NA	Western	ghaemmaghami03-abundance.txt	Ghaemmaghami et al. "Global analysis of protein expression in yeast," Nature 425:737-741 (2003).	S288c	BY4741 (ATCC 201388): MATa his3?1 leu2?0 met15?0 ura3?0	30	YEPD	OD ~0.7	anti-TAP western blot			FALSE
+newman	Newman 2006	newman	2006	Newman 2006	weissman	orf	avg.yepd.abund	NA	GFP	newman06-abundance.txt										FALSE
+lu	Lu 2007	lu	2007	Lu 2007	marcotte	orf	apex.ypd	NA	LC MS/MS	lu07-apex/lu07-suppdata1-yeast.txt										FALSE
+degodoy	de Godoy 2008a	degodoy	2008	de Godoy 2008	mann	orf	intensity.l	NA	LC MS/MS	degodoy08-abundance.txt										FALSE
+thakur.1	Thakur 2011 (1)	thakur	2011	Thakur 2011	mann	orf	intensity.exp1	NA	LC MS/MS	thakur11-proteome.txt										TRUE
+thakur.2	Thakur 2011 (2)	thakur	2011	Thakur 2011	mann	orf	intensity.exp2	NA	LC MS/MS	thakur11-proteome.txt										TRUE
+thakur.3	Thakur 2011 (3)	thakur	2011	Thakur 2011	mann	orf	intensity.exp3	NA	LC MS/MS	thakur11-proteome.txt										TRUE
+lee.1	Lee 2011 (1)	lee	2011	Lee 2011	coon	orf	tmt.130.intensity.nacl.0min	NA	LC MS/MS	lee11-proteome-transcriptome/lee11-proteome-biorep1.txt	Lee et al. "A dynamic model of proteome changes reveals new roles for transcript alteration in yeast" Molecular Systems Biology 7:514 (2011).									TRUE
+lee.2	Lee 2011 (2)	lee	2011	Lee 2011	coon	orf	tmt.130.intensity.nacl.0min	NA	LC MS/MS	lee11-proteome-transcriptome/lee11-proteome-biorep2.txt	Lee et al. "A dynamic model of proteome changes reveals new roles for transcript alteration in yeast" Molecular Systems Biology 7:514 (2011).									TRUE
+lee.3	Lee 2011 (3)	lee	2011	Lee 2011	coon	orf	tmt.130.intensity.nacl.0min	NA	LC MS/MS	lee11-proteome-transcriptome/lee11-proteome-biorep3.txt	Lee et al. "A dynamic model of proteome changes reveals new roles for transcript alteration in yeast" Molecular Systems Biology 7:514 (2011).									TRUE
+nagaraj.1	Nagaraj 2012 (1)	nagaraj	2012	Nagaraj 2012	mann	Majority.Protein.IDs	Intensity.run01	NA	LC MS/MS	nagaraj12-proteome.txt										TRUE
+nagaraj.2	Nagaraj 2012 (2)	nagaraj	2012	Nagaraj 2012	mann	Majority.Protein.IDs	Intensity.run02	NA	LC MS/MS	nagaraj12-proteome.txt										TRUE
+nagaraj.3	Nagaraj 2012 (3)	nagaraj	2012	Nagaraj 2012	mann	Majority.Protein.IDs	Intensity.run03	NA	LC MS/MS	nagaraj12-proteome.txt										TRUE
+nagaraj.4	Nagaraj 2012 (4)	nagaraj	2012	Nagaraj 2012	mann	Majority.Protein.IDs	Intensity.run04	NA	LC MS/MS	nagaraj12-proteome.txt										TRUE
+nagaraj.5	Nagaraj 2012 (5)	nagaraj	2012	Nagaraj 2012	mann	Majority.Protein.IDs	Intensity.run05	NA	LC MS/MS	nagaraj12-proteome.txt										TRUE
+nagaraj.6	Nagaraj 2012 (6)	nagaraj	2012	Nagaraj 2012	mann	Majority.Protein.IDs	Intensity.run06	NA	LC MS/MS	nagaraj12-proteome.txt										TRUE

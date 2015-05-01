@@ -1,0 +1,13 @@
+Package: SCM
+Version: 0.1
+Data: Jan 31, 2012
+Title: Estimating structured covariance matrices
+Author: Gabor Csardi <gcsardi@stat.harvard.edu>
+	Alexander M Franks <afranks@fas.harvard.edu>
+Maintainer: Gabor Csardi <gcsardi@stat.harvard.edu>
+Description: Estimate structured covariance matrices with 
+	     a specific non-ignorable missing data structure.
+Depends: truncnorm, lavaan
+Suggests: 
+License: GPL (>=2)
+URL:

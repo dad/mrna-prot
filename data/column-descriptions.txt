@@ -1,0 +1,86 @@
+# Column descriptions
+column.name	description
+orf	Systematic yeast ORF (open reading frame) identifier
+gene	Common gene name
+mrna	Messenger RNA level
+prot	Protein level
+sd.mrna	Standard deviation on estimates of log-transformed mRNA levels (mRNA lower bound = exp(log(mrna)-sd.mrna)), mRNA upper bound = exp(log(mrna)+sd.mrna)))
+sd.prot	Standard deviation on estimates of log-transformed protein levels (protein lower bound = exp(log(prot)-sd.prot)), protein upper bound = exp(log(prot)+sd.prot)))
+n.mrna	Number of mRNA-level measurements
+n.prot	Number of protein-level measurements
+mrna.n	Number of mRNA-level measurements from ribosome profiling studies, excluding Ingolia et al. 2009
+rd.n	Number of ribosome footprint density measurements from ribosome profiling studies
+ing1	Ingolia et al. 2009 mRNA (average of two replicates)
+ger1	Gerashchenko et al. 2012 mRNA
+mcm1	McManus et al. 2014 mRNA
+sub1	Subtelny et al. 2014 mRNA
+mrna.median	Median of normalized mRNA measurements from ribosome profiling studies, excluding Ingolia et al. 2009
+rd.ing1	Ingolia et al. 2009 ribosome footprint density (average of two replicates)
+rd.ger1	Gerashchenko et al. 2012 ribosome footprint density
+rd.ger2	Gerashchenko et al. 2014 ribosome footprint density
+rd.mcm1	McManus et al. 2014 ribosome footprint density (average of two replicates)
+rd.sub1	Subtelny et al. 2014 ribosome footprint density
+rd.median	Median of normalized ribosome footprint density measurements
+te	Translational efficiency (rd.median/mrna.median)
+mrna.lower.95	Lower 95% confidence interval on mRNA level
+mrna.upper.95	Upper 95% confidence interval on mRNA level
+prot.lower.95	Lower 95% confidence interval on protein level
+prot.upper.95	Upper 95% confidence interval on protein level
+mrna.velc	Velculescu 1997 (SAGE)
+mrna.roth.a	Roth 1998 (a cells, Affymetrix yeast antisense A-D array)
+mrna.roth.alpha	Roth 1998 (alpha cells, Affymetrix yeast antisense A-D array)
+mrna.holstege	Holstege et al. 1998 (Affymetrix GeneChip YE6100 array)
+mrna.causton.acid.a	Causton et al. 2001 (acid treatment, 0 min, replicate a)
+mrna.causton.acid.b	Causton et al. 2001 (acid treatment, 0 min, replicate b)
+mrna.causton.peroxide.a	Causton et al. 2001 (peroxide treatment, 0 min, replicate a)
+mrna.causton.peroxide.b	Causton et al. 2001 (peroxide treatment, 0 min, replicate b)
+mrna.causton.nacl	Causton et al. 2001 (NaCl treatment, 0 min)
+mrna.dudley.3a	Dudley et al. 2002 (+glucose oligo slide 3a)
+mrna.dudley.3b	Dudley et al. 2002 (+glucose oligo slide 3b)
+mrna.dudley.3c	Dudley et al. 2002 (+glucose oligo slide 3c)
+mrna.dudley.3d	Dudley et al. 2002 (+glucose oligo slide 3d)
+mrna.miura.1	Miura et al. 2008 (competitive PCR, replicate 1)
+mrna.miura.2	Miura et al. 2008 (competitive PCR, replicate 2)
+mrna.miura.3	Miura et al. 2008 (competitive PCR, replicate 3)
+mrna.miura.4	Miura et al. 2008 (competitive PCR, replicate 4)
+mrna.nagalakshmi	Nagalakshmi et al. 2008 RNA-Seq
+mrna.yassour.ypd0.1	Yassour et al. 2009 RNA-Seq (YPD, 0 minutes, 1)
+mrna.yassour.ypd0.2	Yassour et al. 2009 RNA-Seq (YPD, 0 minutes, 2)
+mrna.yassour.ypd15.1	Yassour et al. 2009 RNA-Seq (YPD, 15 minutes, 1)
+mrna.yassour.ypd15.2	Yassour et al. 2009 RNA-Seq (YPD, 15 minutes, 2)
+mrna.lipson.rs07	Lipson et al. 2009 (single-molecule sequencing [smsDGE] ch7)
+mrna.lipson.rs08	Lipson et al. 2009 (single-molecule sequencing [smsDGE] ch8)
+mrna.lipson.rs09	Lipson et al. 2009 (single-molecule sequencing [smsDGE] ch9)
+mrna.lipson.rs10	Lipson et al. 2009 (single-molecule sequencing [smsDGE] ch10)
+mrna.lipson.rs11	Lipson et al. 2009 (single-molecule sequencing [smsDGE] ch11)
+mrna.lipson.rs12	Lipson et al. 2009 (single-molecule sequencing [smsDGE] ch12)
+mrna.lipson.ma	Lipson et al. 2009 (Affymetrix Yeast Genome 2.0 array)
+mrna.ingolia.1	Ingolia et al. 2009 RNA-Seq (mRNA, rich medium, 1)
+mrna.ingolia.2	Ingolia et al. 2009 RNA-Seq (mRNA, rich medium, 2)
+mrna.ingolia.rq	Ingolia 2010 (RNA-Seq, requantified)
+mrna.ingolia.rq.late	Ingolia 2010 RNA-Seq, requantified, late)
+mrna.ingolia.ca	Ingolia 2010 (RNA-Seq, circular amplification)
+mrna.ingolia.ca.late	Ingolia 2010 (RNA-Seq, circular amplification, late)
+mrna.mackay	MacKay et al. 2004 (custom microarray)
+mrna.garcia	Garcia-Martinez et al. 2004 (custom microarray, average of 3 replicates)
+mrna.pelechano	Pelechano & Ortin, 2010 (custom microarray)
+prot.gygi	Gygi et al. 1999 (2D gel scintillation counting)
+prot.futcher	Futcher et al. 1999 (2D gel scintillation counting)
+prot.washburn	Washburn et al. 2001 (LC MS/MS, reported by Greenbaum et al. Genome Biology 2003, Volume 4, Issue 9, Article 117, Supplementary Table 4)
+prot.peng	Peng et al. 2003 (LC MS/MS, reported by Greenbaum et al. Genome Biology 2003, Volume 4, Issue 9, Article 117, Supplementary Table 4)
+prot.ghaem	Ghaemmaghami et al. 2003 (anti-TAP-tag western)
+prot.newman	Newman et al. 2006 (GFP signal quantified by flow cytometry)
+prot.lu	Lu et al. 2007 (APEX protein-level estimates)
+prot.degodoy	de Godoy et al. 2008a (LC MS/MS MaxQuant intensity values)
+prot.thakur.1	Thakur et al. 2011 (LC MS/MS MaxQuant intensity values, replicate 1)
+prot.thakur.2	Thakur et al. 2011 (LC MS/MS MaxQuant intensity values, replicate 2)
+prot.thakur.3	Thakur et al. 2011 (LC MS/MS MaxQuant intensity values, replicate 3)
+prot.lee.1	Lee et al. 2011 (TMT intensity values, replicate 1)
+prot.lee.2	Lee et al. 2011 (TMT intensity values, replicate 2)
+prot.lee.3	Lee et al. 2011 (TMT intensity values, replicate 3)
+prot.nagaraj.1	Nagaraj et al. 2012 (LC MS/MS MaxQuant intensity values, replicate 1)
+prot.nagaraj.2	Nagaraj et al. 2012 (LC MS/MS MaxQuant intensity values, replicate 2)
+prot.nagaraj.3	Nagaraj et al. 2012 (LC MS/MS MaxQuant intensity values, replicate 3)
+prot.nagaraj.4	Nagaraj et al. 2012 (LC MS/MS MaxQuant intensity values, replicate 4)
+prot.nagaraj.5	Nagaraj et al. 2012 (LC MS/MS MaxQuant intensity values, replicate 5)
+prot.nagaraj.6	Nagaraj et al. 2012 (LC MS/MS MaxQuant intensity values, replicate 6)

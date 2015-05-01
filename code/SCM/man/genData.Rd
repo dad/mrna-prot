@@ -1,0 +1,28 @@
+\name{genData}
+\alias{genData}
+\title{TODO}
+\description{TODO}
+\usage{
+genData()
+}
+\arguments{
+}
+\details{
+  TODO
+}
+\value{
+  TODO
+}
+\references{
+  TODO
+}
+\author{
+  TODO
+}
+\seealso{
+  TODO
+}
+\examples{
+## TODO
+}
+\keyword{multivariate}
