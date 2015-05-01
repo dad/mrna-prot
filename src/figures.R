@@ -83,8 +83,6 @@ if (fig.spearman.sim) {
 	par(mar=c(5,5,1,0))
 	plot(c(0,1), c(0,1), type='n', xlim=c(0,1), ylim=c(0,1.1), las=1, xlab=paste('True ',sqstr,'correlation',sep=''), ylab=paste('Observed/corrected\n',sqstr,' correlation',sep=''))
 	abline(0,1,lty='dotted')
-	#abline(h=1,lty='dashed')
-	#abline(h=0,lty='dashed')
 	points(rep(as.numeric(names(corEst$varycor)), sapply(corEst$varycor, nrow)),
 		sapply(corEst$varycor, function(x){x$obs^dosq}), pch=pch, col=obscol, cex=cex.pts)
 	points(rep(as.numeric(names(corEst$varycor)), sapply(corEst$varycor, nrow)),
@@ -131,7 +129,6 @@ if (fig.spearman.sim) {
 		   unlist(corEst$nmar.inf)^dosq, pch=pch, col=fitcol, cex=cex.pts)
 	close.screen(all=TRUE)
 	if (file.out) dev.off()
-	#source("~/research/spearman/analysis/spearman-sim.R")
 }
 
 if (fig.reliability) {

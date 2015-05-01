@@ -24,69 +24,69 @@ protein levels. Protein levels are not proportional to mRNA levels, but rise muc
 
 ### Code
 
-Source for the SCM is in `code`, and source used to generate merged datasets and figures is in `src`.
+Source for the SCM is in `code`, and source used to generate merged datasets and figures is in `src`. The latter relies on code in [`dad:base.git`](http: )
 
 Here, for the impatient, is an implementation of Spearman's correction in [R](http://www.r-project.org).
 
 `
-# Log-transform x, treating values <= 0 or infinite as NA
-log.nozero <- function(x, log.fxn=base::log, ...) {
-	x[x<=0 | x==Inf] <- NA
-	log.fxn(x, ...)
-}
-
-
-# Spearman correction for correlations between x and y, with each variable being a matrix or data.frame
-# of replicates.
-cor.sp.matrix <- function(x, y, method='pearson', use='pairwise.complete.obs', log=FALSE, na.rm=FALSE) {
-	d <- data.frame(x,y)
-	fnstr.beg <- ""
-	fnstr.end <- ""
-	if (log) {
-		fnstr.beg <- "log.nz("
-		fnstr.end <- ")"
-	}
-	if (log) {
-		d <- log.nozero(d)
-	}
-	if (na.rm) {
-		d <- na.omit(d)
-	}
-	if (nrow(na.omit(d))<3) {
-		# Correlations with fewer than 3 points throw errors (and are probably garbage anyway)
-		warning("Insufficient data to compute correlations")
+	# Log-transform x, treating values <= 0 or infinite as NA
+	log.nozero <- function(x, log.fxn=base::log, ...) {
+		x[x<=0 | x==Inf] <- NA
+		log.fxn(x, ...)
 	}
 
-	# Dimensions: do the right thing if there's only one measurement of x or y.
-	nx <- 1
-	if (!is.null(dx <- dim(x))) {
-		nx <- dx[2]
-	}
-	ny <- 1
-	if (!is.null(dy <- dim(y))) {
-		ny <- dy[2]
-	}
-	# Calculate the full correlation matrix
-	r <- cor(d, method=method, use=use)
-	# Extract reliabilities and correlations
-	if (nx>1) {
-		mrelx <- geom.mean(lt(r[1:nx,1:nx]))
-	} else {
-		mrelx <- r[1,1] # Just one X value
-	}
 
-	if (ny>1) {
-		mrely <- geom.mean(lt(r[(nx+1):ncol(d),(nx+1):ncol(d),drop=F]))
-	} else {
-		mrely <- r[ncol(d),ncol(d)] # Just one Y value
+	# Spearman correction for correlations between x and y, with each variable being a matrix or data.frame
+	# of replicates.
+	cor.sp.matrix <- function(x, y, method='pearson', use='pairwise.complete.obs', log=FALSE, na.rm=FALSE) {
+		d <- data.frame(x,y)
+		fnstr.beg <- ""
+		fnstr.end <- ""
+		if (log) {
+			fnstr.beg <- "log.nz("
+			fnstr.end <- ")"
+		}
+		if (log) {
+			d <- log.nozero(d)
+		}
+		if (na.rm) {
+			d <- na.omit(d)
+		}
+		if (nrow(na.omit(d))<3) {
+			# Correlations with fewer than 3 points throw errors (and are probably garbage anyway)
+			warning("Insufficient data to compute correlations")
+		}
+
+		# Dimensions: do the right thing if there's only one measurement of x or y.
+		nx <- 1
+		if (!is.null(dx <- dim(x))) {
+			nx <- dx[2]
+		}
+		ny <- 1
+		if (!is.null(dy <- dim(y))) {
+			ny <- dy[2]
+		}
+		# Calculate the full correlation matrix
+		r <- cor(d, method=method, use=use)
+		# Extract reliabilities and correlations
+		if (nx>1) {
+			mrelx <- geom.mean(lt(r[1:nx,1:nx]))
+		} else {
+			mrelx <- r[1,1] # Just one X value
+		}
+
+		if (ny>1) {
+			mrely <- geom.mean(lt(r[(nx+1):ncol(d),(nx+1):ncol(d),drop=F]))
+		} else {
+			mrely <- r[ncol(d),ncol(d)] # Just one Y value
+		}
+		rr <- r[1:nx,(nx+1):ncol(d)]
+		mr <- geom.mean(rr)
+		res <- mr/sqrt(mrelx*mrely)
+		# Correlation estimate is the Spearman-corrected correlation
+		# No confidence interval
+		list(r=res, n=nrow(d), r.unc=mr, cor=r, nx=nx, ny=ny, relx=mrelx, rely=mrely, estimate=res, conf.int=c(NA,NA))
 	}
-	rr <- r[1:nx,(nx+1):ncol(d)]
-	mr <- geom.mean(rr)
-	res <- mr/sqrt(mrelx*mrely)
-	# Correlation estimate is the Spearman-corrected correlation
-	# No confidence interval
-	list(r=res, n=nrow(d), r.unc=mr, cor=r, nx=nx, ny=ny, relx=mrelx, rely=mrely, estimate=res, conf.int=c(NA,NA))
-}
 `
 
 ### Data
