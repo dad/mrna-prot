@@ -5,7 +5,7 @@ Should you need help running our code, please contact us.
 
 ### Citation
 
-Csárdi G, Franks AM, Choi DS, Airoldi EM, Drummond DA, "Accounting for experimental noise reveals that mRNA levels, amplified by post-transcriptional processes, largely determine steady-state protein levels in yeast," PLoS Genetics (2015).
+Csárdi G, Franks AM, Choi DS, Airoldi EM, Drummond DA, "Accounting for experimental noise reveals that mRNA levels, amplified by post-transcriptional processes, largely determine steady-state protein levels in yeast," *PLoS Genetics* (2015).
 
 ### Abstract
 
@@ -24,7 +24,7 @@ protein levels. Protein levels are not proportional to mRNA levels, but rise muc
 
 ### Code
 
-Source for the SCM is in `code`, and source used to generate merged datasets and figures is in `src`. The latter relies on code in [`dad:base.git`](http: )
+Source for the SCM is in `code`, and source used to generate merged datasets and figures is in `src`. The latter relies on code in [`dad:base.git`](http://github.com/dad/base)
 
 Here, for the impatient, is an implementation of Spearman's correction in [R](http://www.r-project.org).
 
