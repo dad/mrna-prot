@@ -3,7 +3,7 @@ library(Hmisc)
 library(lmodel2)
 
 output.type = 'svg'
-file.out = T
+file.out = F
 
 load.data = F
 # Precalculated data
@@ -34,12 +34,10 @@ fig.relative.dynamic.range = F
 fig.rdens.mrna.slope.vs.cutoff = F
 fig.sma.ma.rma.slopes = F
 
-fig.translational.efficiency = F
-table.dynamic.range = F
-
-fig.dynamic.range = F
+# Figure 7
 fig.toy.model = F
-fig.new.vs.old.mrna = T
+
+fig.translational.efficiency = F
 
 raw.data.dirname <- "../data/raw"
 project.data.dirname <- "../data"
@@ -51,8 +49,6 @@ if (load.data) {
 }
 
 if (fig.spearman.sim) {
-	# The true reliability target
-	#rel.target <- 0.7
 	corEst <- get(load(paste(project.data.dirname,"sim/spearman-sim-scm-results.Rdata",sep='/')))
 
 	# Number of genes
@@ -220,17 +216,12 @@ if (fig.reliability) {
 
 if (fig.correlations.between.scatter) {
 	meth = 's'
-	#raw.ct <- cortest(yres$raw.avg$mrna, yres$raw.avg$prot, log=T, meth=meth)
-	#avg.ct <- cortest(yres$est$mrna, yres$est$prot, log=T, meth=meth)
 	y <- yres$est
 	y$mrna[is.na(yres$Xc.avg$mrna)] <- NA
 	y$prot[is.na(yres$Xc.avg$prot)] <- NA
 	L.noimp.ct <- cortest(y$mrna, y$prot, log=T, meth=meth)
 	# Censored estimate: correlations for genes for which we observe at least one protein and mRNA level
-	#d <- na.omit(data.frame(yres$L[,c('mrna','prot')], yres$raw.avg[,c('mrna','prot')]))
-	#ct.cens <- cortest(d$mrna, d$prot, log=T, meth=meth)
 	# Spearman-corrected estimate
-	#n.cutoff <- nrow(na.omit(yres$raw.avg[,c('mrna','prot')]))*0.6
 	n.cutoff <- 3840
 	# for the set of datasets which yield n>cutoff, what is the reliability?
 	
@@ -265,8 +256,6 @@ if (fig.correlations.between.scatter) {
 	diag(rc.mrna) <- NA
 	nmrna['mrna.causton','mrna.holstege'] <- NA
 	nmrna['mrna.holstege','mrna.causton'] <- NA
-	#nmrna['mrna.ingolia.2009','mrna.ingolia.2010'] <- NA
-	#nmrna['mrna.ingolia.2010','mrna.ingolia.2009'] <- NA
 
 	avg.corrs <- cor(yres$raw.ms.avg[yres$ms.fields$mrna], yres$raw.ms.avg[yres$ms.fields$prot], method=meth, use='pairwise.complete.obs')
 	avg.corrs.s <- cor(yres$raw.ms.avg[yres$ms.fields$mrna], yres$raw.ms.avg[yres$ms.fields$prot], method='s', use='pairwise.complete.obs')
@@ -409,8 +398,6 @@ if (fig.mrna.prot.scatter) {
 	points(nrep.sub$mrna, nrep.sub$prot, pch=16, col=cols[['nrep']], cex=0.5)
 	points(det.sub$mrna, det.sub$prot, pch=16, col=cols[['det']], cex=0.7)
 	points(rep.sub$mrna, rep.sub$prot, pch=16, col=cols[['rep']], cex=0.7)
-	#ydet <- subset(yres$est, !is.na(yres$Xc.avg$prot) & !is.na(yres$Xc.avg$prot))
-	#points(ydet$mrna, ydet$prot, pch=16, cex=0.7, col=tcol('black',0.7))
 	screen(2)
 	par(mar=mar)
 	plist <- list('all'=yres$est$mrna, 'det'=det.sub$mrna, 'noprot'=noprot.sub$mrna, 'rep'=rep.sub$mrna, 'nrep'=nrep.sub$mrna)
@@ -485,16 +472,9 @@ if (fig.scm.abs.standard.comparison) {
 
 if (fig.undetected.prot) {
 	# Isolate set of undetected proteins
-	#which.rdens = 'unstressed_noCHX'
 	y <- subset(data.frame(yres$est, rdens=yres$te$data$rd.median), n.mrna>0)
 	yesprot <- subset(y, n.prot>0)
 	noprot <- subset(y, n.prot==0)
-
-	#ybg <- yres$bg
-	#ybg[ybg$rdens.gerashchenko<=0 | is.na(ybg$rdens.gerashchenko),'rdens.gerashchenko'] <- NA
-	#ybg[ybg$rdens.ingolia<=0 | is.na(ybg$rdens.ingolia),'rdens.ingolia'] <- NA
-	#ybg[ybg$unstressed_noCHX<=0 | is.na(ybg$unstressed_noCHX),'unstressed_noCHX'] <- NA
-	#ybg[ybg$unstressed_1x_CHX<=0 | is.na(ybg$unstressed_1x_CHX),'unstressed_1x_CHX'] <- NA
 
 	z <- match(y$orf, yres$bg$orf)
 	z.no <- match(noprot$orf, yres$bg$orf)
@@ -502,18 +482,8 @@ if (fig.undetected.prot) {
 	cat("# Found", nrow(subset(noprot, !is.na(rdens) & rdens>0)), "genes with undetected protein but detected ribosome footprints\n")
 	cat("# Found", nrow(subset(y, n.mrna>0 & n.prot==0 & is.na(rdens))), 
 		"genes with undetected protein and no detected ribosome footprints.\n")
-	#cat("# Found", nrow(subset(yres$est, n.mrna>0 & n.prot==0 & is.na(ybg$rdens.gerashchenko))), "genes with undetected protein and no detected ribosome footprints by Gerash.\n")
-	#cat("# Found", nrow(subset(yres$est, n.mrna>0 & n.prot==0 & is.na(ybg$rdens.ingolia))), "genes with undetected protein and no detected ribosome footprints by Ingolia.\n")
-	#cat("# Found", nrow(subset(yres$est, n.mrna>0 & n.prot==0 & is.na(ybg$unstressed_noCHX))), "genes with undetected protein and no detected ribosome footprints by Gerashchenko 2014 (no CHX).\n")
-	#cat("# Found", nrow(subset(yres$est, n.mrna>0 & n.prot==0 & is.na(ybg$unstressed_1x_CHX))), "genes with undetected protein and no detected ribosome footprints by Gerashchenko 2014 (1x CHX).\n")
-	#cat("# Found", nrow(subset(yres$est, n.mrna>0 & n.prot==0 & (is.na(ybg$rdens.gerashchenko) & is.na(ybg$rdens.ingolia) & is.na(ybg$unstressed_noCHX) & is.na(ybg$unstressed_1x_CHX)))), 
-	#	"genes with undetected protein and no detected ribosome footprints in any study\n")
-	#cat("# Found", nrow(subset(yres$est, n.mrna>0 & n.prot==0 & !(is.na(ybg$rdens.gerashchenko) & is.na(ybg$rdens.ingolia) & is.na(ybg$unstressed_noCHX) & is.na(ybg$unstressed_1x_CHX)))), 
-	#	"genes with undetected protein and detected ribosome footprints in at least one study\n")
 	pcor(ct <- cortest(yesprot$prot, yesprot$rdens, log=T, meth='p'))
 	pcor(no.ct <- cortest(noprot$prot, noprot$rdens, log=T, meth='p'))
-	#pcor(cor.sp(y$prot, y$prot, yres$bg[z,'rdens.ingolia'], yres$bg[z,'rdens.gerashchenko'], log=T, meth='p'))
-	#pcor(cortest(yres$bg[z.no,'rdens.ingolia'], yres$bg[z.no,'rdens.gerashchenko'], log=T, meth='p'))
 	
 	cols <- tcol(c(myrainbow(3),'black','gray'),0.7)
 	names(cols) <- c('noprot','nrep','det','rep','all')
@@ -525,7 +495,6 @@ if (fig.undetected.prot) {
 	par(mar=mar)
 	xlim <- c(1e-4, 1e3)
 	lplot(noprot$rdens, noprot$prot, xlim=xlim, col=tcol('black',0.6), pch=16, xlab='Ribosome footprint density (rpkm)', ylab='Estimated protein level (mol./cell)')
-	#g <- lmodel2(prot~rdens, data=noprot, range.x='interval', range.y='interval')
 	g <- llmodel2(prot~rdens, data=noprot)
 	labline(g, x=xlim, method='RMA', lty='dotted')
 	text(0.06, 5e2, label=paste("r =",round(no.ct$estimate, 2)), pos=2)
@@ -570,7 +539,6 @@ if (calc.exponent) {
 	fn <- llmodel2
 	for (xm in 1:length(mflds)) {
 		for (xp in 1:length(pflds)) {
-			#r <- m2f(yres$raw.ms.avg[,yres$ms.fields$mrna[xm]], yres$raw.ms.avg[,yres$ms.fields$prot[xp]])
 			r <- m2f(d[,mflds[xm]], d[,pflds[xp]], fn)
 			res <- rbind(res, c(xm, xp, r))
 		}
@@ -592,14 +560,9 @@ if (fig.exponent) {
 	method = 'p'
 	clog = TRUE
 
-	#d <- data.frame(yres$est[,c('mrna','prot')], yres$bg[,c('rdens1','rdens2','rdens.ingolia','rdens.gerashchenko',
-	#	'mrna1','mrna.init.rpkm1','unstressed_1x_CHX','unstressed_noCHX')], mrna2=yres$raw$mrna.ingolia.ca, prot1=yres$raw$prot.degodoy)
-	#db <- na.omit(log.nozero(d[,c('mrna','mrna1','prot','prot1','rdens.ingolia','rdens.gerashchenko','unstressed_1x_CHX','unstressed_noCHX')]))
-
 	d <- data.frame(yres$est[,c('mrna','prot')], samp=yres$est.sample[,c('mrna','prot')],
 		yres$te$data[,c('ing1',yres$te$te.mrna.names, yres$te$te.rd.names,'mrna.median','rd.median')],prot1=yres$raw$prot.degodoy)
-	#db <- na.omit(log.nozero(d))
-	db <- d # na.omit(d)
+	db <- d
 
 	#dcomp <- na.omit(log.nozero(data.frame(prot1=yres$raw$prot.degodoy, prot2=yres$raw$prot.ghaem, mrna1=exp(yres$raw.ms.avg$mrna.yassour), mrna2=exp(yres$raw.ms.avg$mrna.lipson), rdens1=yres$bg$rdens.ingolia, rdens2=yres$bg$rdens.gerashchenko)))
 	meancorr <- mean(yres$corrs)
@@ -703,13 +666,6 @@ if (fig.exponent) {
 		beside=T, ylim=c(0,2), space=c(0,0.2), las=1)
 	abline(h=1.69, lty='dashed')
 	abline(h=1, lty='dotted')
-
-	#screen(7)
-	#par(mar=mar)
-	#lplot(ym$mrna, y$mrna.median, col=tcol('black',0.4), xlab='SCM mRNA level (mol./cell)', ylab='Median mRNA level (AU)')
-	#g <- llmodel2(mrna.median~mrna, data=y)
-	#labline(g, method='RMA', lwd=2, col='gray', lty='solid')
-	#labline(g, method='RMA', slope=1, lwd=2, col='gray70', lty='dotted')
 	close.screen(all=TRUE)
 	if (file.out) dev.off()
 }
@@ -733,7 +689,7 @@ if (fig.relative.dynamic.range) {
 	normexp.sub <- na.omit(subset(normexp, rd.n>4))
 	multidens(normexp[,1:4], 
 		xlab='Normalized level', log=T, lwd=2, col=cols, lty=c('solid','2222','1212','solid'))
-	#multidens(normexp.sub[,1:4], log=T, lwd=2, col=tcol(cols,0.3), add=T, lty=c('solid','solid','dotted','solid'))
+
 	# The width of 80% of the data
 	distr.width <- 0.8
 	distr.diff <- (1-distr.width)/2
@@ -760,31 +716,6 @@ if (fig.relative.dynamic.range) {
 	if (file.out) dev.off()
 }
 
-if (table.dynamic.range) {
-	mrna.flds <- c('mrna.lipson','mrna.yassour','mrna.ingolia')
-	prot.flds <- c('prot.degodoy','prot.ghaem','prot.nagaraj')
-	flds <- c(mrna.flds, prot.flds)
-	full.ranges <- sapply(d <- yres$Xc.ms.avg[,flds], sd, na.rm=T)
-	sub.ranges <- sapply(dn <- na.omit(d), sd, na.rm=T)
-	p <- c(0.025, 0.975)
-	#p <- c(0.05,0.95)
-	#full.out.ranges <- sapply(d, quantile, probs=p, na.rm=T)
-	sub.out.ranges <- sapply(dn, quantile, probs=p, na.rm=T)
-	#print(full.out.ranges[2,]-full.out.ranges[1,])
-	diffs <- sub.out.ranges[2,]-sub.out.ranges[1,]
-	print(diffs)
-	mar <- c(4,8,1,1)
-	if (file.out) dev.out('fig_relative_dynamic_range_supp', width=4, height=4, output.type=output.type)
-	par(mar=mar)
-	barplot(rev(diffs/min(diffs)), horiz=T, las=1, col=rev(c('lightgray','lightgray','lightgray','black','black','black')),
-		xlab='Relative dynamic range\n(N=3049 genes)',
-		names.arg=rev(c('Lipson','Yassour','Ingolia','de Godoy','Ghaemmaghami','Nagaraj')), cex.names=1)
-	abline(v=1, lty='dotted', col='darkgray')
-	if (file.out) dev.off()
-
-	#te.ranges <- sapply(dte <- na.omit(log.nz(yres$te$data[,c('mrna','mrna.median','rd.median')])), quantile, probs=p,na.rm=F)
-}
-
 if (fig.sma.ma.rma.slopes) {
 	mar = c(4,4,1,1)
 	if (file.out) dev.out("fig-exponent-supp", width=4, height=4, output.type=output.type)
@@ -801,25 +732,6 @@ if (fig.sma.ma.rma.slopes) {
 	abline(v=medex, lwd=2, lty='dashed')
 	text(meds, 0.5, label=flds, pos=3, col=cols)
 	text(medex, 0.5, label='SCM', pos=3)
-	if (file.out) dev.off()
-}
-
-if (fig.rdens.mrna.slope.vs.cutoff) {
-	s <- 10^seq(-1,4,0.1)
-	dat <- rdens.dats[['gerashchenko14 no CHX']]
-	slope.r <- sapply(s, function(m){x <- subset(xi,y>m); coef2(llmodel2(y~x,data=x,base=10),model='RMA')[2]})
-	nt <- nrow(subset(xi, y>0))
-	coverage <- sapply(s, function(m){x <- subset(xi,y>m); nrow(x)/nt})
-
-	mar = c(4,4,1,1)
-	if (file.out) dev.out("fig.slope.vs.cutoff", width=8, height=4, output.type=output.type)
-	split.screen(c(1,2))
-	screen(1)
-	par(mar=mar)
-	plot(s, slope.r, log='x', pch=16, las=1, ylim=c(0,2), ylab='Slope', xaxt='n', xlab='Cutoff')
-	my.axis(1, s, log=T)
-	lines(s, coverage, lwd=1)
-	close.screen(all=TRUE)
 	if (file.out) dev.off()
 }
 
