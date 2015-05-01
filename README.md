@@ -29,6 +29,7 @@ Source for the SCM is in `code`, and source used to generate merged datasets and
 Here, for the impatient, is an implementation of Spearman's correction in [R](http://www.r-project.org).
 
 `
+
 	# Log-transform x, treating values <= 0 or infinite as NA
 	log.nozero <- function(x, log.fxn=base::log, ...) {
 		x[x<=0 | x==Inf] <- NA
