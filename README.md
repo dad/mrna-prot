@@ -24,7 +24,7 @@ protein levels. Protein levels are not proportional to mRNA levels, but rise muc
 
 ### Code
 
-Source for the SCM is in `code`, and source used to generate merged datasets and figures is in `src`. The latter relies on code in [`dad:base.git`](http://github.com/dad/base)
+Source for the SCM is in `code`, and source used to generate merged datasets and figures is in `src`. The latter relies on code in [`dad:base/stat-lib.R`](http://github.com/dad/base).
 
 Here, for the impatient, is an implementation of Spearman's correction in [R](http://www.r-project.org).
 
