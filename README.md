@@ -40,12 +40,6 @@ log.nozero <- function(x, log.fxn=base::log, ...) {
 # of replicates.
 cor.sp.matrix <- function(x, y, method='pearson', use='pairwise.complete.obs', log=FALSE, na.rm=FALSE) {
 	d <- data.frame(x,y)
-	fnstr.beg <- ""
-	fnstr.end <- ""
-	if (log) {
-		fnstr.beg <- "log.nz("
-		fnstr.end <- ")"
-	}
 	if (log) {
 		d <- log.nozero(d)
 	}
